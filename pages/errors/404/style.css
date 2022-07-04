@@ -1,0 +1,40 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+.error{
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    margin-top: 30px;
+}
+.error img{
+    width: 100%;
+    height: auto;
+}
+.error p{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+a{
+    padding: 10px;
+    font-size: 17px;
+    background: transparent;
+    border: 0;
+    color: #a9a5bc;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1b162f;
+    border-radius: 10px;
+    font-weight: bold;
+    opacity: 0.8;
+}
+a:hover{
+    opacity: 1;
+}
