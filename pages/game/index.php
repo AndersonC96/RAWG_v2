@@ -63,6 +63,27 @@
                             }?>
                         </li>-->
                         <li><b>Metacritic:</b> <?= $data->metacritic ?></li>
+                        <li><b>Plataformas:</b> 
+                            <?php
+                                foreach($data->platforms as $platform){
+                                    echo $platform->platform->name . ', ';
+                                }
+                            ?>
+                        </li>
+                        <li><b>Desenvolvedora:</b> 
+                            <?php
+                                foreach($data->developers as $developer){
+                                    echo $developer->name . ', ';
+                                }
+                            ?>
+                        </li>
+                        <li><b>Publisher:</b> 
+                            <?php
+                                foreach($data->publishers as $publisher){
+                                    echo $publisher->name . ', ';
+                                }
+                            ?>
+                        </li>
                         <div class="game-expecification">
                             <div>
                                 <video src="<?= $data->clip->clip ?>" controls muted loop></video>
@@ -135,7 +156,7 @@
                                     foreach($data->stores as $store){//foreach para mostrar as lojas
                                         //echo '<span class="store">'.$store.'</span>';
                                 ?>
-                                <a href="<?= $store->url ?>" target="blank">
+                                <a href="<?= $store->store->domain ?>" target="blank">
                                     <img src="<?= $store->store->image_background ?>" alt="<?= $store->store->slug ?>">
                                     <span><?= $store->store->name ?></span>
                                 </a>
