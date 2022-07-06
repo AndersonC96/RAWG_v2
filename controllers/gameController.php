@@ -19,4 +19,5 @@
     $screenshots = api("games/{$id}/screenshots");
     $additions = api("games/{$id}/additions");
     $gameSeries = api("games/{$id}/game-series");
+    $achievements = api("games/{$id}/achievements");
     $data = $response;
