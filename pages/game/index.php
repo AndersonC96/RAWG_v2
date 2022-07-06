@@ -92,11 +92,28 @@
                         </div>
                         <?php
                             foreach($additions->results as $additions){
-                                echo '<li>' . $additions->name . " (" . date('d/m/Y', strtotime($additions->released)) . ")" . '</li>';
+                                if($additions->released == null){
+                                    echo '<li>' . $additions->name . " (" . "Lançamento desconhecido" . ")" . '</li>';
+                                }else{
+                                    echo '<li>' . $additions->name . " (" . date('d/m/Y', strtotime($additions->released)) . ")" . '</li>';
+                                }
                             }
                         ?>
                         <div class="store">
                             <h3>Jogos da Franquia</h3>
+                        </div>
+                        <div class="tags">
+                            <?php
+                                foreach($gameSeries->results as $gameSeries){
+                                    if()
+                            ?>
+                            <a href="#">
+                                <img src="<?= $gameSeries->background_image ?>" alt="<?= $gameSeries->name ?>">
+                                <span><?= $gameSeries->name ?></span>
+                            </a>
+                            <?php
+                                }
+                            ?>
                         </div>
                         <?php
                             foreach($gameSeries->results as $gameSeries){
@@ -149,6 +166,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="store">
+                            <h3>Screenshots</h3>
+                        </div>
                         <div class="grid-screenshot">
                             <?php
                                 foreach($screenshots->results as $screenshot){
@@ -160,6 +180,9 @@
                                 }
                             ?>
                         </div>
+                        <div class="store">
+                            <h3>Tags</h3>
+                        </div>
                         <div class="tags">
                             <?php
                                 foreach($data->tags as $tag){//foreach para mostrar as tags
@@ -168,6 +191,21 @@
                             <a href="#">
                                 <img src="<?= $tag->image_background ?>" alt="<?= $tag->slug ?>">
                                 <span><?= $tag->name ?></span>
+                            </a>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                        <div class="store">
+                            <h3>Conquistas</h3>
+                        </div>
+                        <div class="tags">
+                            <?php
+                                foreach($achievements->results as $achievements){//foreach para mostrar as conquistas
+                            ?>
+                            <a href="#">
+                                <img src="<?= $achievements->image ?>" alt="<?= $achievements->name ?>">
+                                <span><?= $achievements->name ?></span>
                             </a>
                             <?php
                                 }
