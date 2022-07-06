@@ -100,13 +100,12 @@
                         </div>
                         <?php
                             foreach($gameSeries->results as $gameSeries){
-                                echo '<ul>
-                                        <li>' . $gameSeries->name . '
-                                            <ul>
-                                                <li>'."1".'</li>
-                                            </ul>
-                                        </li>
-                                    </ul>';
+                                if($gameSeries->released == null){
+                                    echo '<li>' . $gameSeries->name . " (" . "Lançamento desconhecido" . ")" . '</li>';
+                                }else{
+                                    echo '<li>' . $gameSeries->name . " (" . date('d/m/Y', strtotime($gameSeries->released)) . ")" . '</li>';
+                                }
+                                //echo '<li>' . $gameSeries->name . " (" . date('d/m/Y', strtotime($gameSeries->released)) . ")" . '</li>';
                             }
                         ?>
                         <div class="game-expecification">
