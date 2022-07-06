@@ -48,6 +48,9 @@
                 <main>
                     <article class="container">
                         <p><?= $data->description ?></p>
+                        <div class="store">
+                            <h3>Dados</h3>
+                        </div>
                         <!--<b>Lançamento:</b> <?= $data->released ?>-->
                         <li><b>Lançamento:</b> <?php $rel = date('d/m/Y', strtotime($data->released)); echo $rel?></li>
                         <!--<li><b>Metacritic:</b> <?php if($data->metacritic == 0 && 19){
@@ -84,6 +87,28 @@
                                 }
                             ?>
                         </li>
+                        <div class="store">
+                            <h3>DLC's e Edições especiais</h3>
+                        </div>
+                        <?php
+                            foreach($additions->results as $additions){
+                                echo '<li>' . $additions->name . " (" . date('d/m/Y', strtotime($additions->released)) . ")" . '</li>';
+                            }
+                        ?>
+                        <div class="store">
+                            <h3>Jogos da Franquia</h3>
+                        </div>
+                        <?php
+                            foreach($gameSeries->results as $gameSeries){
+                                echo '<ul>
+                                        <li>' . $gameSeries->name . '
+                                            <ul>
+                                                <li>'."1".'</li>
+                                            </ul>
+                                        </li>
+                                    </ul>';
+                            }
+                        ?>
                         <div class="game-expecification">
                             <div>
                                 <video src="<?= $data->clip->clip ?>" controls muted loop></video>
