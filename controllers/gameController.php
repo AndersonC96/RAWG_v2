@@ -17,4 +17,6 @@
         //header("Location: {$url}pages/errors/404");
     }
     $screenshots = api("games/{$id}/screenshots");
+    $additions = api("games/{$id}/additions");
+    $gameSeries = api("games/{$id}/game-series");
     $data = $response;
