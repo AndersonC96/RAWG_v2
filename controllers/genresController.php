@@ -10,4 +10,4 @@
     $genres = $response->results;
     $id = $_GET['id'] ?? $genres[0]->id;
     $page = $_GET['page'] ?? 1;
-    $response = api("games?genres={$id}");
+    $response = api("genres/{$id}");
