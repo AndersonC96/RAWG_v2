@@ -105,26 +105,19 @@
                         <div class="tags">
                             <?php
                                 foreach($gameSeries->results as $gameSeries){
-                                    if()
-                            ?>
+                                    if($gameSeries->name == null){
+                                        echo '<li>' . "Não possui" . '</li>';
+                                    }else{
+                                        ?>
                             <a href="#">
                                 <img src="<?= $gameSeries->background_image ?>" alt="<?= $gameSeries->name ?>">
                                 <span><?= $gameSeries->name ?></span>
                             </a>
                             <?php
+                                    }
                                 }
                             ?>
                         </div>
-                        <?php
-                            foreach($gameSeries->results as $gameSeries){
-                                if($gameSeries->released == null){
-                                    echo '<li>' . $gameSeries->name . " (" . "Lançamento desconhecido" . ")" . '</li>';
-                                }else{
-                                    echo '<li>' . $gameSeries->name . " (" . date('d/m/Y', strtotime($gameSeries->released)) . ")" . '</li>';
-                                }
-                                //echo '<li>' . $gameSeries->name . " (" . date('d/m/Y', strtotime($gameSeries->released)) . ")" . '</li>';
-                            }
-                        ?>
                         <div class="game-expecification">
                             <div>
                                 <video src="<?= $data->clip->clip ?>" controls muted loop></video>
