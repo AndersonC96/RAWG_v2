@@ -10,7 +10,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="../../assets/redoc-logo.png" />
-        <title>Rawg API</title>
+        <title><?= $data->name ?></title>
         <link rel="stylesheet" href="../../style.css">
         <link rel="stylesheet" href="./style.css">
         <?php
@@ -87,6 +87,7 @@
                                 }
                             ?>
                         </li>
+                        <li><b>Duração média:</b> <?= $data->playtime ?> Horas</li>
                         <div class="store">
                             <h3>DLC's e Edições especiais</h3>
                         </div>
