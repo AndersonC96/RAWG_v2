@@ -223,14 +223,18 @@
                             <h3>Lojas</h3>
                             <div>
                                 <?php
-                                    foreach($data->stores as $store){//foreach para mostrar as lojas
-                                        //echo '<span class="store">'.$store.'</span>';
+                                    if($data->stores == null){
+                                        echo '<li>' . "Este jogo não está disponível em nenhuma loja" . '</li>';
+                                    }else{
+                                        foreach($data->stores as $store){//foreach para mostrar as lojas
+                                            //echo '<span class="store">'.$store.'</span>';
                                 ?>
                                 <a href="<?= $store->store->domain ?>" target="blank">
                                     <img src="<?= $store->store->image_background ?>" alt="<?= $store->store->slug ?>">
                                     <span><?= $store->store->name ?></span>
                                 </a>
                                 <?php
+                                        }
                                     }
                                 ?>
                             </div>
