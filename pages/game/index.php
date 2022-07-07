@@ -90,30 +90,41 @@
                         <div class="store">
                             <h3>DLC's e Edições especiais</h3>
                         </div>
-                        <?php
-                            foreach($additions->results as $additions){
-                                if($additions->released == null){
-                                    echo '<li>' . $additions->name . " (" . "Lançamento desconhecido" . ")" . '</li>';
+                        <div class="tags">
+                            <?php
+                                if($additions->results == null){
+                                    echo '<li>' . "Nenhum DLC ou Edição especial" . '</li>';
                                 }else{
-                                    echo '<li>' . $additions->name . " (" . date('d/m/Y', strtotime($additions->released)) . ")" . '</li>';
+                                    foreach($additions->results as $additions){
+                            ?>
+                            <a href="#">
+                                <img src="<?= $additions->background_image ?>" alt="<?= $additions->name ?>">
+                                <span><?= $additions->name ?></span>
+                            </a>
+                            <?php
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
+                        </div>
                         <div class="store">
                             <h3>Jogos da Franquia</h3>
                         </div>
                         <div class="tags">
                             <?php
-                                foreach($gameSeries->results as $gameSeries){
-                                    if($gameSeries->name == null){
-                                        echo '<li>' . "Não possui" . '</li>';
-                                    }else{
-                                        ?>
+                                if($gameSeries->results == null){
+                                    echo '<li>' . "Este jogo não é uma franquia" . '</li>';
+                                }else{
+                                    foreach($gameSeries->results as $gameSeries){
+                                        if($gameSeries->name == null){
+                                            echo '<li>' . "Não possui" . '</li>';
+                                        }else{
+                            ?>
                             <a href="#">
                                 <img src="<?= $gameSeries->background_image ?>" alt="<?= $gameSeries->name ?>">
                                 <span><?= $gameSeries->name ?></span>
                             </a>
                             <?php
+                                        }
                                     }
                                 }
                             ?>
@@ -194,13 +205,17 @@
                         </div>
                         <div class="tags">
                             <?php
-                                foreach($achievements->results as $achievements){//foreach para mostrar as conquistas
+                                if($achievements->results == null){
+                                    echo '<li>' . "Este jogo não tem conquistas" . '</li>';
+                                }else{
+                                    foreach($achievements->results as $achievements){//foreach para mostrar as conquistas
                             ?>
                             <a href="#">
                                 <img src="<?= $achievements->image ?>" alt="<?= $achievements->name ?>">
                                 <span><?= $achievements->name ?></span>
                             </a>
                             <?php
+                                    }
                                 }
                             ?>
                         </div>
