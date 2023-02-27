@@ -1,8 +1,8 @@
 <?php
-    error_reporting(-1);
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    include_once('./controllers/homeController.php');
+    error_reporting(-1);//mostra todos os erros
+    error_reporting(E_ALL);//mostra todos os erros
+    ini_set("display_errors", 1);//mostra todos os erros
+    include_once('./controllers/homeController.php');//inclui o arquivo homeController.php
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
