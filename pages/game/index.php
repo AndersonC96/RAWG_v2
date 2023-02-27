@@ -66,35 +66,73 @@
                             }?>
                         </li>-->
                         <li><b>Metacritic:</b> <?= $data->metacritic ?></li>
+                        <!--<li><b>Gênero:</b> <?= $data->genres ?></li>-->
+                        <li><b>Gênero:</b> 
+                        <?php
+                            $genres_names = array();
+                            foreach($data->genres as $genre){
+                                $genres_names[] = $genre->name;
+                            }
+                            echo implode(', ', $genres_names);
+                        ?>
+                        </li>
                         <li><b>Plataformas:</b> 
                             <?php
-                                foreach($data->platforms as $platform){
-                                    echo $platform->platform->name . ', ';
+                                foreach($data->parent_platforms as $parent_platforms){
+                                    //echo $platform->platform->name . ', ';
+                                    $parent_platforms_names[] = $parent_platforms->platform->name;
                                 }
+                                echo implode(', ', $parent_platforms_names);
+                            ?>
+                        </li>
+                        <li><b>Consoles:</b> 
+                            <?php
+                                foreach($data->platforms as $platform){
+                                    //echo $platform->platform->name . ', ';
+                                    $platform_names[] = $platform->platform->name;
+                                }
+                                echo implode(', ', $platform_names);
                             ?>
                         </li>
                         <li><b>Desenvolvedora:</b> 
                             <?php
                                 foreach($data->developers as $developer){
-                                    echo $developer->name . ', ';
+                                    //echo $developer->name . ', ';
+                                    $developer_names[] = $developer->name;
                                 }
+                                echo implode(', ', $developer_names);
                             ?>
                         </li>
                         <li><b>Publisher:</b> 
                             <?php
                                 foreach($data->publishers as $publisher){
-                                    echo $publisher->name . ', ';
+                                    //echo $publisher->name . ', ';
+                                    $publisher_names[] = $publisher->name;
+                                }
+                                echo implode(', ', $publisher_names);
+                            ?>
+                        </li>
+                        <!--<li><b>Duração média:</b> <?= $data->playtime ?> Horas</li>-->
+                        <li><b>Duração média:</b> 
+                            <?php
+                                if($data->playtime == 0){
+                                    echo "Não informado";
+                                }else{
+                                    if($data->playtime == 1){
+                                        echo $data->playtime . " Hora";
+                                    }else{
+                                        echo $data->playtime . " Horas";
+                                    }
                                 }
                             ?>
                         </li>
-                        <li><b>Duração média:</b> <?= $data->playtime ?> Horas</li>
                         <div class="store">
                             <h3>DLC's e Edições especiais</h3>
                         </div>
                         <div class="tags">
                             <?php
                                 if($additions->results == null){
-                                    echo '<li>' . "Nenhum DLC ou Edição especial" . '</li>';
+                                    echo '<li>' . "Nenhuma DLC ou Edição especial" . '</li>';
                                 }else{
                                     foreach($additions->results as $additions){
                             ?>
@@ -138,7 +176,7 @@
                                 <ul>
                                     <h4>Avaliações</h4>
                                     <li>
-                                        <div class="ratings">
+                                        <center><div class="ratings">
                                             <?php
                                                 foreach($data->ratings as $rating){//foreach para mostrar as avaliações
                                                     //echo '<span class="rating">'.$rating->title.'</span>';
@@ -152,23 +190,9 @@
                                             <?php
                                                 }
                                             ?>
-                                        </div>
+                                        </div></center>
                                     </li>
                                 </ul>
-                                <div class="game-genres">
-                                    <h4>Gêneros</h4>
-                                    <div>
-                                        <?php
-                                            foreach($data->genres as $genre){//foreach para mostrar os gêneros
-                                                //echo '<span class="genre">'.$genre.'</span>';
-                                        ?>
-                                        <a href="#"><?= $genre->name ?></a>
-                                        <?php
-                                                //echo substr($genre->name, 0, -2);
-                                            }
-                                        ?>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="store">
@@ -185,6 +209,47 @@
                                 }
                             ?>
                         </div>
+                        <!--<div class="store">
+                            <h3>Screenshots</h3>
+                        </div>
+                        <div class="grid-screenshot">
+                            <div class="slider">
+                                <?php foreach($screenshots->results as $screenshot){?>
+                                    <div class="card-screenshot">
+                                        <img src="<?= $screenshot->image ?>" alt="<?= $screenshot->id ?>" />
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+                        <script>
+                            $(document).ready(function(){
+                                $('.slider').slick({
+                                    dots: true, // Exibe os pontos de navegação
+                                    infinite: true, // Habilita navegação infinita
+                                    speed: 500, // Velocidade da transição
+                                    slidesToShow: 3, // Quantidade de slides exibidos ao mesmo tempo
+                                    slidesToScroll: 3, // Quantidade de slides que serão navegados ao clicar nas setas
+                                    responsive: [
+                                        {
+                                            breakpoint: 768, // Define um ponto de quebra para adaptar o carrossel em telas menores
+                                            settings: {
+                                                slidesToShow: 2,
+                                                slidesToScroll: 2
+                                            }
+                                        },
+                                        {
+                                            breakpoint: 480,
+                                            settings: {
+                                                slidesToShow: 1,
+                                                slidesToScroll: 1
+                                            }
+                                        }
+                                    ]
+                                });
+                            });
+                        </script>-->
                         <div class="store">
                             <h3>Tags</h3>
                         </div>
@@ -231,7 +296,30 @@
                                             //echo '<span class="store">'.$store.'</span>';
                                 ?>
                                 <a href="<?= $store->store->domain ?>" target="blank">
-                                    <img src="<?= $store->store->image_background ?>" alt="<?= $store->store->slug ?>">
+                                    <!--<img src="<?= $store->store->image_background ?>" alt="<?= $store->store->slug ?>">-->
+                                    <?php
+                                        if($store->store->name == 'Steam'){
+                                            echo '<img src="/RAWG_v2/img/steam.png" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'Epic Games'){
+                                            echo '<img src="/RAWG_v2/img/epic.jpg" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'PlayStation Store'){
+                                            echo '<img src="/RAWG_v2/img/ps.png" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'Nintendo Store'){
+                                            echo '<img src="/RAWG_v2/img/nintendo.jpg" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'Xbox Store'){
+                                            echo '<img src="/RAWG_v2/img/xbox.png" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'App Store'){
+                                            echo '<img src="/RAWG_v2/img/apple.png" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'GOG'){
+                                            echo '<img src="/RAWG_v2/img/gog.jpg" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'Google Play'){
+                                            echo '<img src="/RAWG_v2/img/google.jpg" alt="' . $store->store->slug . '">';
+                                        }elseif($store->store->name == 'Xbox 360 Store'){
+                                            echo '<img src="/RAWG_v2/img/xbox.png" alt="' . $store->store->slug . '">';
+                                        }else{
+                                            echo '<img src="' . $store->store->image_background . '" alt="' . $store->store->slug . '">';
+                                        }
+                                    ?>
                                     <span><?= $store->store->name ?></span>
                                 </a>
                                 <?php
