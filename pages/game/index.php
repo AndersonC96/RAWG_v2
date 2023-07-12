@@ -271,6 +271,21 @@
                                 ?>
                             </div>
                         </div>
+                        <div class="store">
+                            <h3>Desenvolvedores</h3>
+                            <div>
+                                <?php
+                                    foreach($devTeam->results as $devTeam){//foreach para mostrar os desenvolvedores
+                                ?>
+                                <a href="#">
+                                    <img src="<?= $devTeam->image ?>" alt="<?= $devTeam->slug ?>">
+                                    <span><?= $devTeam->name ?></span>
+                                </a>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                        </div>
                     </article>
                 </main>
             </div>
