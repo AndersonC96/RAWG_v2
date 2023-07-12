@@ -11,6 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="../../assets/redoc-logo.png" />
         <title><?= $data->name ?></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="../../style.css">
         <link rel="stylesheet" href="./style.css">
         <?php
@@ -282,6 +284,27 @@
                     sidebar.style.cssText = 'left: -120%';
                 }
             }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                $('.owl-carousel').owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    responsive:{
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
+                    }
+                });
+            });
         </script>
     </body>
 </html>
