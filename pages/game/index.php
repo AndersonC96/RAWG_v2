@@ -109,6 +109,7 @@
                                 }
                             ?>
                         </li>
+                        <li><b>Conquistas:</b> <?= $achievements->count ?></li>
                         <div class="store">
                             <h3>DLC's e Edições especiais</h3>
                         </div>
@@ -121,7 +122,7 @@
                             ?>
                             <a href="#">
                                 <img src="<?= $additions->background_image ?>" alt="<?= $additions->name ?>">
-                                <span><?= $additions->name ?></span>
+                                <span><?= $additions->name ?></span></span> (<?= date('d/m/Y', strtotime($additions->released)) ?>)
                             </a>
                             <?php
                                     }
@@ -143,7 +144,7 @@
                             ?>
                             <a href="#">
                                 <img src="<?= $gameSeries->background_image ?>" alt="<?= $gameSeries->name ?>">
-                                <span><?= $gameSeries->name ?></span>
+                                <span><?= $gameSeries->name ?></span> (<?= date('d/m/Y', strtotime($gameSeries->released)) ?>)
                             </a>
                             <?php
                                         }
@@ -220,7 +221,9 @@
                             ?>
                             <a href="#">
                                 <img src="<?= $achievements->image ?>" alt="<?= $achievements->name ?>">
-                                <span><?= $achievements->name ?></span>
+                                <span><b>Nome: </b><?= $achievements->name ?> | <b>Descrição: </b><span><?= $achievements->description ?></span>
+                                <br>
+                                <b>Desbloqueio: </b><span><?= $achievements->percent ?>%</span>
                             </a>
                             <?php
                                     }
