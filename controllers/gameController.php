@@ -20,4 +20,6 @@
     $additions = api("games/{$id}/additions");
     $gameSeries = api("games/{$id}/game-series");
     $achievements = api("games/{$id}/achievements");
+    $devTeam = api("games/{$id}/development-team");
+    $trailers = api("games/{$id}/movies");
     $data = $response;
