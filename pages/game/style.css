@@ -96,6 +96,7 @@ h1{
     line-height: 23px;
 }
 div.game-expecification{
+    text-align: center;
     border-top: 1px solid #1b162f;
     margin-top: 10px;
     display: grid;
@@ -246,4 +247,7 @@ main{
         width: 150px;
         height: 180px;
     }
+}
+.ratings-container{
+    text-align: center;
 }
