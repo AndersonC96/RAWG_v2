@@ -49,24 +49,10 @@
                     <article class="container">
                         <p><?= $data->description ?></p>
                         <div class="store">
-                            <h3>Dados</h3>
+                            <h3>Informações</h3>
                         </div>
-                        <!--<b>Lançamento:</b> <?= $data->released ?>-->
                         <li><b>Lançamento:</b> <?php $rel = date('d/m/Y', strtotime($data->released)); echo $rel?></li>
-                        <!--<li><b>Metacritic:</b> <?php if($data->metacritic == 0 && 19){
-                            echo $data->metacritic;
-                            }else if($data->metacritic == 20 && 49){
-                                echo $data->metacritic;
-                            }else if($data->metacritic == 50 && 74){
-                                echo $data->metacritic;
-                            }else if($data->metacritic == 75 && 89){
-                                echo $data->metacritic;
-                            }else{
-                                echo $data->metacritic;
-                            }?>
-                        </li>-->
                         <li><b>Metacritic:</b> <?= $data->metacritic ?></li>
-                        <!--<li><b>Gênero:</b> <?= $data->genres ?></li>-->
                         <li><b>Gênero:</b> 
                         <?php
                             $genres_names = array();
@@ -79,7 +65,6 @@
                         <li><b>Plataformas:</b> 
                             <?php
                                 foreach($data->parent_platforms as $parent_platforms){
-                                    //echo $platform->platform->name . ', ';
                                     $parent_platforms_names[] = $parent_platforms->platform->name;
                                 }
                                 echo implode(', ', $parent_platforms_names);
@@ -88,7 +73,6 @@
                         <li><b>Consoles:</b> 
                             <?php
                                 foreach($data->platforms as $platform){
-                                    //echo $platform->platform->name . ', ';
                                     $platform_names[] = $platform->platform->name;
                                 }
                                 echo implode(', ', $platform_names);
@@ -97,7 +81,6 @@
                         <li><b>Desenvolvedora:</b> 
                             <?php
                                 foreach($data->developers as $developer){
-                                    //echo $developer->name . ', ';
                                     $developer_names[] = $developer->name;
                                 }
                                 echo implode(', ', $developer_names);
@@ -106,13 +89,11 @@
                         <li><b>Publisher:</b> 
                             <?php
                                 foreach($data->publishers as $publisher){
-                                    //echo $publisher->name . ', ';
                                     $publisher_names[] = $publisher->name;
                                 }
                                 echo implode(', ', $publisher_names);
                             ?>
                         </li>
-                        <!--<li><b>Duração média:</b> <?= $data->playtime ?> Horas</li>-->
                         <li><b>Duração média:</b> 
                             <?php
                                 if($data->playtime == 0){
@@ -169,28 +150,29 @@
                             ?>
                         </div>
                         <div class="game-expecification">
-                            <div>
+                            <!--<div>
                                 <video src="<?= $data->clip->clip ?>" controls muted loop></video>
-                            </div>
+                            </div>-->
                             <div>
-                                <ul>
+                                <ul class="ratings-container">
                                     <h4>Avaliações</h4>
                                     <li>
-                                        <center><div class="ratings">
-                                            <?php
-                                                foreach($data->ratings as $rating){//foreach para mostrar as avaliações
-                                                    //echo '<span class="rating">'.$rating->title.'</span>';
-                                            ?>
-                                            <div>
-                                                <?= ucfirst($rating->title) ?>
-                                                <span class="porcent">
-                                                    <span style="width: <?= $rating->percent ?>%;"></span>
-                                                </span>
+                                        <center>
+                                            <div class="ratings">
+                                                <?php
+                                                    foreach($data->ratings as $rating){//foreach para mostrar as avaliações
+                                                ?>
+                                                <div>
+                                                    <?= ucfirst($rating->title) ?>
+                                                    <span class="porcent">
+                                                        <span style="width: <?= $rating->percent ?>%;"></span>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                    }
+                                                ?>
                                             </div>
-                                            <?php
-                                                }
-                                            ?>
-                                        </div></center>
+                                        </center>
                                     </li>
                                 </ul>
                             </div>
@@ -209,54 +191,12 @@
                                 }
                             ?>
                         </div>
-                        <!--<div class="store">
-                            <h3>Screenshots</h3>
-                        </div>
-                        <div class="grid-screenshot">
-                            <div class="slider">
-                                <?php foreach($screenshots->results as $screenshot){?>
-                                    <div class="card-screenshot">
-                                        <img src="<?= $screenshot->image ?>" alt="<?= $screenshot->id ?>" />
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                        <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-                        <script>
-                            $(document).ready(function(){
-                                $('.slider').slick({
-                                    dots: true, // Exibe os pontos de navegação
-                                    infinite: true, // Habilita navegação infinita
-                                    speed: 500, // Velocidade da transição
-                                    slidesToShow: 3, // Quantidade de slides exibidos ao mesmo tempo
-                                    slidesToScroll: 3, // Quantidade de slides que serão navegados ao clicar nas setas
-                                    responsive: [
-                                        {
-                                            breakpoint: 768, // Define um ponto de quebra para adaptar o carrossel em telas menores
-                                            settings: {
-                                                slidesToShow: 2,
-                                                slidesToScroll: 2
-                                            }
-                                        },
-                                        {
-                                            breakpoint: 480,
-                                            settings: {
-                                                slidesToShow: 1,
-                                                slidesToScroll: 1
-                                            }
-                                        }
-                                    ]
-                                });
-                            });
-                        </script>-->
                         <div class="store">
                             <h3>Tags</h3>
                         </div>
                         <div class="tags">
                             <?php
                                 foreach($data->tags as $tag){//foreach para mostrar as tags
-                                    //echo '<span class="tag">'.$tag.'</span>';
                             ?>
                             <a href="#">
                                 <img src="<?= $tag->image_background ?>" alt="<?= $tag->slug ?>">
@@ -293,10 +233,8 @@
                                         echo '<li>' . "Este jogo não está disponível em nenhuma loja" . '</li>';
                                     }else{
                                         foreach($data->stores as $store){//foreach para mostrar as lojas
-                                            //echo '<span class="store">'.$store.'</span>';
                                 ?>
                                 <a href="<?= $store->store->domain ?>" target="blank">
-                                    <!--<img src="<?= $store->store->image_background ?>" alt="<?= $store->store->slug ?>">-->
                                     <?php
                                         if($store->store->name == 'Steam'){
                                             echo '<img src="/RAWG_v2/img/steam.png" alt="' . $store->store->slug . '">';
