@@ -51,12 +51,14 @@ $basePath = '/RAWG_v2';
             <div class="card-platforms">
                 <?php foreach ($game->parent_platforms ?? [] as $platform): ?>
                 <i class="bi bi-<?= match($platform->platform->slug) {
-                    'pc' => 'windows',
+                'pc' => 'windows',
                     'playstation' => 'playstation',
                     'xbox' => 'xbox',
                     'nintendo' => 'nintendo-switch',
-                    'ios' => 'apple',
+                    'ios', 'mac', 'macos', 'macintosh', 'apple' => 'apple',
                     'android' => 'android2',
+                    'linux' => 'ubuntu',
+                    'web' => 'globe',
                     default => 'controller'
                 } ?>" title="<?= htmlspecialchars($platform->platform->name) ?>"></i>
                 <?php endforeach; ?>

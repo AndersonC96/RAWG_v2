@@ -29,12 +29,19 @@ class PublisherController extends BaseController
 
         $response = $this->api->getPublishers($page);
         $publishers = $response->results ?? [];
+        $totalCount = $response->count ?? 0;
+        $hasNextPage = !empty($response->next);
+        $hasPrevPage = $page > 1;
 
         $this->setTitle('Publishers - RAWG API');
 
         $this->render('publisher/index', [
             'publishers' => $publishers,
-            'currentPage' => $page
+            'currentPage' => $page,
+            'totalCount' => $totalCount,
+            'hasNextPage' => $hasNextPage,
+            'hasPrevPage' => $hasPrevPage,
+            'pageSize' => 20
         ]);
     }
 
