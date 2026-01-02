@@ -365,17 +365,26 @@ $basePath = '/RAWG_v2';
         <div class="card-body">
             <h5 class="card-title d-flex align-items-center mb-3">
                 <i class="bi bi-collection me-2 text-primary"></i>
-                Jogos da Franquia
+                Jogos da Franquia (<?= count($gameSeries->results) ?>)
             </h5>
-            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
-                <?php foreach (array_slice($gameSeries->results, 0, 6) as $related): ?>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3">
+                <?php foreach ($gameSeries->results as $related): ?>
                 <div class="col">
                     <a href="<?= $basePath ?>/game/<?= $related->id ?>" class="text-decoration-none">
-                        <div class="related-game-card">
+                        <div class="related-game-card position-relative">
                             <img src="<?= htmlspecialchars($related->background_image ?? '') ?>" 
                                  class="img-fluid rounded mb-2" 
-                                 alt="<?= htmlspecialchars($related->name) ?>">
-                            <h6 class="text-truncate mb-0"><?= htmlspecialchars($related->name) ?></h6>
+                                 alt="<?= htmlspecialchars($related->name) ?>"
+                                 style="height: 100px; width: 100%; object-fit: cover;">
+                            <?php if (!empty($related->metacritic)): ?>
+                            <span class="position-absolute top-0 end-0 m-1 badge bg-<?= $related->metacritic >= 75 ? 'success' : ($related->metacritic >= 50 ? 'warning' : 'danger') ?>">
+                                <?= $related->metacritic ?>
+                            </span>
+                            <?php endif; ?>
+                            <h6 class="text-truncate mb-0 small"><?= htmlspecialchars($related->name) ?></h6>
+                            <?php if (!empty($related->released)): ?>
+                            <small class="text-muted"><?= date('Y', strtotime($related->released)) ?></small>
+                            <?php endif; ?>
                         </div>
                     </a>
                 </div>
