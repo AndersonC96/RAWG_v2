@@ -52,11 +52,12 @@ $basePath = '/RAWG_v2';
                     <div class="card-body">
                         <i class="bi bi-<?= match($platform->slug) {
                             'pc' => 'windows',
-                            'playstation5', 'playstation4', 'playstation3' => 'playstation',
-                            'xbox-one', 'xbox-series-x' => 'xbox',
+                            'playstation5', 'playstation4', 'playstation3', 'playstation2', 'playstation1', 'ps-vita', 'psp' => 'playstation',
+                            'xbox-one', 'xbox-series-x', 'xbox360', 'xbox-old' => 'xbox',
                             'nintendo-switch' => 'nintendo-switch',
-                            'ios' => 'apple',
+                            'ios', 'macos', 'macintosh', 'apple-ii' => 'apple',
                             'android' => 'android2',
+                            'linux' => 'ubuntu',
                             default => 'controller'
                         } ?> display-6 text-primary mb-2"></i>
                         <h6 class="card-title mb-1"><?= htmlspecialchars($platform->name) ?></h6>
