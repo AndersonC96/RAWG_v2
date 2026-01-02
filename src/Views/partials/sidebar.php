@@ -53,16 +53,10 @@ function isActive(string $path, string $currentUri, string $basePath): bool {
     
     <div class="sidebar-footer">
         <div class="theme-switcher">
-            <button class="btn btn-sm btn-outline-light w-100" id="themeToggle">
+            <button class="btn btn-sm btn-theme-toggle w-100" id="themeToggle">
                 <i class="bi bi-moon-stars-fill me-2"></i>
                 <span>Tema</span>
             </button>
-        </div>
-        <div class="sidebar-credits">
-            <small class="text-muted">
-                <i class="bi bi-code-slash"></i>
-                Portfolio Project
-            </small>
         </div>
     </div>
 </aside>
