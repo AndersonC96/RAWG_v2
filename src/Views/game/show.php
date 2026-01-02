@@ -469,7 +469,20 @@ $basePath = '/RAWG_v2';
                             <span class="text-muted d-block mb-2">Plataformas</span>
                             <div class="d-flex flex-wrap gap-1">
                                 <?php foreach ($game->platforms ?? [] as $p): ?>
-                                <span class="badge bg-dark"><?= htmlspecialchars($p->platform->name) ?></span>
+                                <span class="badge bg-dark">
+                                    <i class="bi bi-<?= match($p->platform->slug) {
+                                        'pc' => 'windows',
+                                        'playstation5', 'playstation4', 'playstation3', 'playstation2', 'playstation1', 'ps-vita', 'psp' => 'playstation',
+                                        'xbox-one', 'xbox-series-x', 'xbox360', 'xbox-old' => 'xbox',
+                                        'nintendo-switch', 'nintendo-3ds', 'nintendo-ds', 'nintendo-dsi', 'wii-u', 'wii', 'gamecube', 'nintendo-64', 'snes', 'nes', 'game-boy', 'game-boy-advance', 'game-boy-color' => 'nintendo-switch',
+                                        'ios', 'mac', 'macos', 'macintosh', 'apple-ii' => 'apple',
+                                        'android' => 'android2',
+                                        'linux' => 'ubuntu',
+                                        'web' => 'globe',
+                                        default => 'controller'
+                                    } ?> me-1"></i>
+                                    <?= htmlspecialchars($p->platform->name) ?>
+                                </span>
                                 <?php endforeach; ?>
                             </div>
                         </li>
