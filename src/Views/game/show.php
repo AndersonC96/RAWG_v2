@@ -654,14 +654,17 @@ $basePath = '/RAWG_v2';
     
     <!-- Related Games -->
     <?php if (!empty($gameSeries->results)): ?>
+    <?php $totalSeries = count($gameSeries->results); ?>
     <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title d-flex align-items-center mb-3">
                 <i class="bi bi-collection me-2 text-primary"></i>
-                Jogos da Franquia (<?= count($gameSeries->results) ?>)
+                Jogos da Franquia (<?= $totalSeries ?>)
             </h5>
+            
+            <!-- Initial 6 games -->
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3">
-                <?php foreach ($gameSeries->results as $related): ?>
+                <?php foreach (array_slice($gameSeries->results, 0, 6) as $related): ?>
                 <div class="col">
                     <a href="<?= $basePath ?>/game/<?= $related->id ?>" class="text-decoration-none">
                         <div class="related-game-card position-relative">
@@ -683,6 +686,69 @@ $basePath = '/RAWG_v2';
                 </div>
                 <?php endforeach; ?>
             </div>
+            
+            <!-- Collapsible remaining games -->
+            <?php if ($totalSeries > 6): ?>
+            <div class="collapse" id="moreSeries">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3 mt-0">
+                    <?php foreach (array_slice($gameSeries->results, 6) as $related): ?>
+                    <div class="col">
+                        <a href="<?= $basePath ?>/game/<?= $related->id ?>" class="text-decoration-none">
+                            <div class="related-game-card position-relative">
+                                <img src="<?= htmlspecialchars($related->background_image ?? '') ?>" 
+                                     class="img-fluid rounded mb-2" 
+                                     alt="<?= htmlspecialchars($related->name) ?>"
+                                     style="height: 100px; width: 100%; object-fit: cover;">
+                                <?php if (!empty($related->metacritic)): ?>
+                                <span class="position-absolute top-0 end-0 m-1 badge bg-<?= $related->metacritic >= 75 ? 'success' : ($related->metacritic >= 50 ? 'warning' : 'danger') ?>">
+                                    <?= $related->metacritic ?>
+                                </span>
+                                <?php endif; ?>
+                                <h6 class="text-truncate mb-0 small"><?= htmlspecialchars($related->name) ?></h6>
+                                <?php if (!empty($related->released)): ?>
+                                <small class="text-muted"><?= date('Y', strtotime($related->released)) ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
+            <!-- Toggle Button -->
+            <div class="text-center mt-3">
+                <button class="btn btn-outline-primary" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#moreSeries"
+                        aria-expanded="false">
+                    <span class="show-more-series">
+                        <i class="bi bi-chevron-down me-1"></i> Ver mais <?= $totalSeries - 6 ?> jogos
+                    </span>
+                    <span class="show-less-series d-none">
+                        <i class="bi bi-chevron-up me-1"></i> Ver menos
+                    </span>
+                </button>
+            </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const collapseSeriesEl = document.getElementById('moreSeries');
+                if (collapseSeriesEl) {
+                    collapseSeriesEl.addEventListener('show.bs.collapse', () => {
+                        const btn = document.querySelector('[data-bs-target="#moreSeries"]');
+                        btn.querySelector('.show-more-series').classList.add('d-none');
+                        btn.querySelector('.show-less-series').classList.remove('d-none');
+                    });
+                    collapseSeriesEl.addEventListener('hide.bs.collapse', () => {
+                        const btn = document.querySelector('[data-bs-target="#moreSeries"]');
+                        btn.querySelector('.show-more-series').classList.remove('d-none');
+                        btn.querySelector('.show-less-series').classList.add('d-none');
+                    });
+                }
+            });
+            </script>
+            <?php endif; ?>
         </div>
     </div>
     <?php endif; ?>

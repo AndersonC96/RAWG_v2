@@ -45,7 +45,7 @@ class GameController extends BaseController
         $screenshots = $this->api->getGameScreenshots($gameId);
         $trailers = $this->api->getGameTrailers($gameId);
         $additions = $this->api->getAllGameAdditions($gameId);
-        $gameSeries = $this->api->getGameSeries($gameId);
+        $gameSeries = $this->api->getAllGameSeries($gameId);
         $achievements = $this->api->getAllGameAchievements($gameId);
         $devTeam = $this->api->getAllGameDevTeam($gameId);
 

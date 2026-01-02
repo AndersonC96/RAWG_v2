@@ -264,14 +264,51 @@ class RawgApiService
     }
 
     /**
-     * Get games from the same series.
+     * Get games from the same series (single page).
      * 
      * @param int $id Game ID
+     * @param int $page Page number
      * @return object|null Game series
      */
-    public function getGameSeries(int $id): ?object
+    public function getGameSeries(int $id, int $page = 1): ?object
     {
-        return $this->request("games/{$id}/game-series");
+        return $this->request("games/{$id}/game-series", ['page' => $page]);
+    }
+
+    /**
+     * Get ALL games from the same series with automatic pagination.
+     * 
+     * @param int $id Game ID
+     * @param int $maxPages Maximum pages to fetch (default 10)
+     * @return object|null All series games combined
+     */
+    public function getAllGameSeries(int $id, int $maxPages = 10): ?object
+    {
+        $allResults = [];
+        $page = 1;
+        $totalCount = 0;
+        
+        do {
+            $response = $this->getGameSeries($id, $page);
+            
+            if (!$response || empty($response->results)) {
+                break;
+            }
+            
+            if ($page === 1) {
+                $totalCount = $response->count ?? 0;
+            }
+            
+            $allResults = array_merge($allResults, $response->results);
+            $hasMore = !empty($response->next);
+            $page++;
+            
+        } while ($hasMore && $page <= $maxPages);
+        
+        return (object) [
+            'count' => $totalCount,
+            'results' => $allResults
+        ];
     }
 
     /**
