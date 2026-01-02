@@ -31,10 +31,16 @@ class GenreController extends BaseController
         $page = (int) $this->getParam('page', 1);
 
         $games = [];
+        $totalCount = 0;
+        $hasNextPage = false;
+        $hasPrevPage = $page > 1;
+        
         if ($selectedId > 0) {
             $response = $this->api->getGamesByGenre($selectedId, $page);
             if ($response && isset($response->results)) {
                 $games = $response->results;
+                $totalCount = $response->count ?? 0;
+                $hasNextPage = !empty($response->next);
             }
         }
 
@@ -44,7 +50,11 @@ class GenreController extends BaseController
             'genres' => $genres,
             'games' => $games,
             'selectedId' => $selectedId,
-            'page' => $page
+            'page' => $page,
+            'totalCount' => $totalCount,
+            'hasNextPage' => $hasNextPage,
+            'hasPrevPage' => $hasPrevPage,
+            'pageSize' => 20
         ]);
     }
 }
