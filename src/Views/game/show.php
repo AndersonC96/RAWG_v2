@@ -461,7 +461,32 @@ $basePath = '/RAWG_v2';
                             <span class="text-muted d-block mb-2">Gêneros</span>
                             <div class="d-flex flex-wrap gap-1">
                                 <?php foreach ($game->genres ?? [] as $genre): ?>
-                                <span class="badge bg-secondary"><?= htmlspecialchars($genre->name) ?></span>
+                                <?php
+                                $bgColor = match($genre->slug) {
+                                    'action' => '#e63946',
+                                    'indie' => '#8338ec',
+                                    'adventure' => '#2a9d8f',
+                                    'rpg', 'role-playing-games-rpg' => '#fb8500',
+                                    'strategy' => '#0077b6',
+                                    'shooter' => '#d90429',
+                                    'casual' => '#FF99C8',
+                                    'simulation' => '#457b9d',
+                                    'puzzle' => '#e76f51',
+                                    'arcade' => '#f4a261',
+                                    'platformer' => '#2a9d8f',
+                                    'racing' => '#e9c46a',
+                                    'massively-multiplayer' => '#ef476f',
+                                    'sports' => '#264653',
+                                    'fighting' => '#9d0208',
+                                    'family' => '#118ab2',
+                                    'board-games' => '#6d6875',
+                                    'educational' => '#06d6a0',
+                                    'card' => '#ef233c',
+                                    default => '#6c757d'
+                                };
+                                $textColor = in_array($genre->slug, ['casual', 'racing']) ? '#212529' : '#ffffff';
+                                ?>
+                                <span class="badge" style="background-color: <?= $bgColor ?>; color: <?= $textColor ?>"><?= htmlspecialchars($genre->name) ?></span>
                                 <?php endforeach; ?>
                             </div>
                         </li>
