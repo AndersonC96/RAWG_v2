@@ -83,20 +83,21 @@ $basePath = '/RAWG_v2';
                 <div class="card-body">
                     <h5 class="card-title d-flex align-items-center mb-3">
                         <i class="bi bi-images me-2 text-primary"></i>
-                        Screenshots
+                        Screenshots (<?= count($screenshots->results) ?>)
                     </h5>
                     <div class="row g-3">
-                        <?php foreach (array_slice($screenshots->results, 0, 6) as $screenshot): ?>
-                        <div class="col-md-4">
+                        <?php foreach ($screenshots->results as $screenshot): ?>
+                        <div class="col-md-4 col-6">
                             <a href="<?= htmlspecialchars($screenshot->image) ?>" 
                                data-bs-toggle="modal" 
                                data-bs-target="#imageModal"
                                data-image="<?= htmlspecialchars($screenshot->image) ?>"
                                class="screenshot-link">
                                 <img src="<?= htmlspecialchars($screenshot->image) ?>" 
-                                     class="img-fluid rounded" 
+                                     class="img-fluid rounded screenshot-thumb" 
                                      alt="Screenshot"
-                                     loading="lazy">
+                                     loading="lazy"
+                                     style="height: 120px; width: 100%; object-fit: cover;">
                             </a>
                         </div>
                         <?php endforeach; ?>
