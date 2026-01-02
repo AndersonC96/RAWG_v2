@@ -370,14 +370,51 @@ class RawgApiService
     }
 
     /**
-     * Get game trailers/movies.
+     * Get game trailers/movies (single page).
      * 
      * @param int $id Game ID
+     * @param int $page Page number
      * @return object|null Trailers
      */
-    public function getGameTrailers(int $id): ?object
+    public function getGameTrailers(int $id, int $page = 1): ?object
     {
-        return $this->request("games/{$id}/movies");
+        return $this->request("games/{$id}/movies", ['page' => $page]);
+    }
+
+    /**
+     * Get ALL game trailers/movies with automatic pagination.
+     * 
+     * @param int $id Game ID
+     * @param int $maxPages Maximum pages to fetch (default 10)
+     * @return object|null All trailers combined
+     */
+    public function getAllGameTrailers(int $id, int $maxPages = 10): ?object
+    {
+        $allResults = [];
+        $page = 1;
+        $totalCount = 0;
+        
+        do {
+            $response = $this->getGameTrailers($id, $page);
+            
+            if (!$response || empty($response->results)) {
+                break;
+            }
+            
+            if ($page === 1) {
+                $totalCount = $response->count ?? 0;
+            }
+            
+            $allResults = array_merge($allResults, $response->results);
+            $hasMore = !empty($response->next);
+            $page++;
+            
+        } while ($hasMore && $page <= $maxPages);
+        
+        return (object) [
+            'count' => $totalCount,
+            'results' => $allResults
+        ];
     }
 
     /**

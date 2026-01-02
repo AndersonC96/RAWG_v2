@@ -43,7 +43,7 @@ class GameController extends BaseController
 
         // Fetch additional data
         $screenshots = $this->api->getGameScreenshots($gameId);
-        $trailers = $this->api->getGameTrailers($gameId);
+        $trailers = $this->api->getAllGameTrailers($gameId);
         $additions = $this->api->getAllGameAdditions($gameId);
         $gameSeries = $this->api->getAllGameSeries($gameId);
         $achievements = $this->api->getAllGameAchievements($gameId);
