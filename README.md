@@ -3,14 +3,14 @@
 <div align="center">
 
 ![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![RAWG API](https://img.shields.io/badge/RAWG-API-667eea?style=for-the-badge)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![PSR-4](https://img.shields.io/badge/PSR--4-Autoload-4F5D95?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**Uma aplicação web moderna para explorar o mundo dos games**
+**Aplicação web moderna para explorar jogos usando a API RAWG**
 
-[Demo](#demo) • [Funcionalidades](#-funcionalidades) • [Tecnologias](#-tecnologias) • [Instalação](#-instalação) • [Screenshots](#-screenshots)
+[Demo](#demo) • [Arquitetura](#-arquitetura) • [Instalação](#-instalação) • [Funcionalidades](#-funcionalidades)
 
 </div>
 
@@ -18,54 +18,91 @@
 
 ## 📖 Sobre
 
-O **RAWG_v2** é uma aplicação web que consome a [API RAWG](https://rawg.io/apidocs) para fornecer informações detalhadas sobre jogos. Com uma interface moderna e responsiva, você pode:
+O **RAWG_v2** é uma aplicação web PHP que demonstra boas práticas de desenvolvimento, incluindo:
 
-- 🔍 **Buscar** jogos por nome
-- 🏷️ **Filtrar** por gênero
-- ⭐ **Salvar** seus jogos favoritos
-- 📊 **Visualizar** avaliações e estatísticas
-- 🖼️ **Explorar** screenshots e trailers
+- 🏗️ **Arquitetura MVC** com separação clara de responsabilidades
+- 📦 **PSR-4 Autoloading** com namespaces organizados
+- 🎨 **Bootstrap 5** com design moderno e responsivo
+- 🔒 **Segurança** com variáveis de ambiente para API keys
+- 📱 **PWA Ready** com Service Worker para offline
+
+## 🏛️ Arquitetura
+
+```
+RAWG_v2/
+├── 📂 src/                     # Código fonte (PSR-4)
+│   ├── Config/                 # Configurações
+│   │   └── Config.php          # Carrega .env e constantes
+│   ├── Controllers/            # Controllers MVC
+│   │   ├── BaseController.php  # Controller base abstrato
+│   │   ├── HomeController.php
+│   │   ├── GameController.php
+│   │   ├── SearchController.php
+│   │   ├── GenreController.php
+│   │   └── FavoritesController.php
+│   ├── Core/                   # Componentes core
+│   │   └── Router.php          # Roteador simples
+│   ├── Services/               # Serviços
+│   │   └── RawgApiService.php  # Cliente API RAWG
+│   └── Views/                  # Templates
+│       ├── layouts/            # Layout principal
+│       ├── partials/           # Componentes reutilizáveis
+│       ├── home/               # Views da home
+│       ├── game/               # Views do jogo
+│       ├── search/             # Views de busca
+│       ├── genre/              # Views de gêneros
+│       ├── favorites/          # Views de favoritos
+│       └── errors/             # Páginas de erro
+├── 📂 public/                  # Assets públicos
+│   └── assets/
+│       ├── css/style.css       # Estilos customizados
+│       ├── js/app.js           # JavaScript principal
+│       └── images/             # Imagens
+├── 📄 index.php                # Entry point (Front Controller)
+├── 📄 composer.json            # Configuração Composer
+├── 📄 manifest.json            # PWA Manifest
+└── 📄 .env.example             # Template de configuração
+```
 
 ## ✨ Funcionalidades
 
 | Feature | Descrição |
 |---------|-----------|
-| **Busca Inteligente** | Pesquise jogos com histórico de buscas recentes |
-| **Sistema de Favoritos** | Salve seus jogos preferidos (localStorage) |
-| **Tema Dark/Light** | Alternância de tema com persistência |
-| **Design Responsivo** | Interface adaptável para todos os dispositivos |
-| **Glassmorphism UI** | Design moderno com efeitos visuais premium |
-| **Lazy Loading** | Carregamento otimizado de imagens |
-| **PWA Ready** | Instalável como aplicativo |
+| **Catálogo de Jogos** | Navegue por milhares de jogos com paginação |
+| **Detalhes Completos** | Screenshots, avaliações, conquistas, DLCs |
+| **Busca Inteligente** | Pesquise com histórico de buscas |
+| **Sistema de Favoritos** | Salve jogos (localStorage) |
+| **Filtro por Gênero** | Explore por categoria |
+| **Tema Dark/Light** | Alternância com persistência |
+| **Compartilhamento** | Facebook, Twitter, WhatsApp |
+| **PWA** | Instalável como app |
 
 ## 🚀 Tecnologias
 
 ### Backend
-- **PHP 8.0+** - Linguagem server-side
-- **cURL** - Requisições HTTP otimizadas
-- **MVC Pattern** - Arquitetura organizada
+- **PHP 8.0+** com tipagem estrita
+- **PSR-4** autoloading
+- **PSR-12** coding style
+- **cURL** para requisições HTTP
+- **MVC** architecture pattern
 
 ### Frontend
-- **CSS Custom Properties** - Sistema de design tokens
-- **Glassmorphism** - Efeitos modernos de UI
-- **CSS Grid & Flexbox** - Layouts responsivos
-- **Material Icons** - Iconografia consistente
-- **Inter Font** - Tipografia moderna
+- **Bootstrap 5.3** framework CSS
+- **Bootstrap Icons** iconografia
+- **Inter** tipografia (Google Fonts)
+- **JavaScript ES6+** módulos
 
-### API
-- **RAWG.io** - Base de dados com 500.000+ jogos
-  - Informações detalhadas
-  - Screenshots e trailers
-  - Avaliações e metacritic
-  - Lojas e plataformas
+### PWA
+- **Service Worker** para cache
+- **Manifest.json** para instalação
 
 ## 📦 Instalação
 
 ### Pré-requisitos
 
-- PHP 8.0 ou superior
+- PHP 8.0+
 - Servidor web (Apache/Nginx)
-- Extensão cURL habilitada
+- cURL extension
 
 ### Passos
 
@@ -79,109 +116,76 @@ O **RAWG_v2** é uma aplicação web que consome a [API RAWG](https://rawg.io/ap
    ```bash
    cp .env.example .env
    ```
-   Edite o arquivo `.env` e adicione sua chave:
+   Edite `.env`:
    ```
    RAWG_API_KEY=sua_api_key_aqui
    ```
    
-   > 💡 Obtenha sua API key em [rawg.io/apidocs](https://rawg.io/apidocs)
+   > Obtenha sua key em [rawg.io/apidocs](https://rawg.io/apidocs)
 
 3. **Configure o servidor**
-   - Para XAMPP: Coloque na pasta `htdocs`
-   - Para Laravel Valet/Herd: Coloque na pasta de sites
+   - XAMPP: Coloque em `htdocs/RAWG_v2`
+   - Ou use PHP built-in:
+     ```bash
+     php -S localhost:8080
+     ```
 
-4. **Acesse a aplicação**
+4. **Acesse**
    ```
    http://localhost/RAWG_v2
    ```
 
-## 📁 Estrutura do Projeto
+## 📁 Padrões Utilizados
 
-```
-RAWG_v2/
-├── 📂 assets/           # Imagens e recursos estáticos
-│   └── js/             # JavaScript modules
-├── 📂 components/       # Componentes PHP reutilizáveis
-│   ├── header.php
-│   ├── sidebar.php
-│   └── error.php
-├── 📂 config/           # Configurações
-│   └── config.php      # Env loading e helpers
-├── 📂 controllers/      # Lógica de controle
-│   ├── homeController.php
-│   ├── gameController.php
-│   ├── searchController.php
-│   └── genresController.php
-├── 📂 pages/            # Páginas da aplicação
-│   ├── game/
-│   ├── search/
-│   ├── genres/
-│   └── favorites/
-├── 📂 services/         # Serviços de API
-│   └── api.php         # RAWG API client
-├── 📄 index.php         # Entry point
-├── 📄 style.css         # Estilos globais
-├── 📄 manifest.json     # PWA manifest
-└── 📄 .env.example      # Template de configuração
+### PSR-4 Autoloading
+```php
+namespace App\Controllers;
+
+class HomeController extends BaseController
+{
+    public function index(): void { }
+}
 ```
 
-## 🎨 Screenshots
+### PSR-12 Coding Style
+- `declare(strict_types=1)` em todos os arquivos
+- Tipagem de parâmetros e retorno
+- PHPDoc completo
 
-<div align="center">
+### MVC Pattern
+- **Model**: Representação de dados (API responses)
+- **View**: Templates PHP com Bootstrap
+- **Controller**: Lógica de negócio
 
-### 🏠 Home Page
-> Design moderno com hero section e grid de jogos
+## 🔧 Configuração
 
-### 🔍 Busca
-> Pesquisa com histórico e resultados instantâneos
-
-### 🎮 Detalhes do Jogo
-> Informações completas com screenshots, avaliações e lojas
-
-### ⭐ Favoritos
-> Seus jogos salvos com visualização rápida
-
-</div>
-
-## 🔧 Variáveis de Ambiente
-
-| Variável | Descrição | Obrigatório |
-|----------|-----------|-------------|
-| `RAWG_API_KEY` | Chave de acesso à API RAWG | ✅ Sim |
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Siga os passos:
-
-1. Fork o projeto
-2. Crie sua branch (`git checkout -b feature/NovaFeature`)
-3. Commit suas mudanças (`git commit -m 'Add: nova feature'`)
-4. Push para a branch (`git push origin feature/NovaFeature`)
-5. Abra um Pull Request
+| Variável | Descrição |
+|----------|-----------|
+| `RAWG_API_KEY` | Chave API RAWG (obrigatório) |
+| `APP_DEBUG` | Modo debug (opcional) |
 
 ## 📝 Changelog
 
 ### v2.0.0 (2026-01)
-- ✨ Redesign completo com glassmorphism
-- 🔒 Sistema seguro de API keys com `.env`
-- ⭐ Sistema de favoritos com localStorage
+- ✨ Refatoração completa com MVC
+- 📦 PSR-4 autoloading
+- 🎨 Bootstrap 5 integration
+- 🔒 API key em `.env`
+- ⭐ Sistema de favoritos
 - 🌙 Toggle dark/light mode
-- 📱 PWA support com manifest.json
-- 🚀 Otimizações de performance
+- 📱 PWA com Service Worker
 
 ### v1.0.0
-- Initial release
+- Release inicial
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+MIT License - veja [LICENSE](LICENSE)
 
 ---
 
 <div align="center">
 
-**Desenvolvido por [Anderson](https://www.linkedin.com/in/andersoncavalcante96)**
-
-⭐ Se este projeto te ajudou, considere dar uma estrela!
+**Desenvolvido por [Anderson Cavalcante](https://www.linkedin.com/in/andersoncavalcante96)**
 
 </div>
