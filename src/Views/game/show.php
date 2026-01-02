@@ -289,6 +289,36 @@ $basePath = '/RAWG_v2';
         </div>
     </div>
     
+    <!-- DLCs & Additions -->
+    <?php if (!empty($additions->results)): ?>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title d-flex align-items-center mb-3">
+                <i class="bi bi-plus-circle me-2 text-success"></i>
+                DLCs e Expansões (<?= count($additions->results) ?>)
+            </h5>
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
+                <?php foreach ($additions->results as $dlc): ?>
+                <div class="col">
+                    <a href="<?= $basePath ?>/game/<?= $dlc->id ?>" class="text-decoration-none">
+                        <div class="dlc-card">
+                            <img src="<?= htmlspecialchars($dlc->background_image ?? '') ?>" 
+                                 class="img-fluid rounded mb-2" 
+                                 alt="<?= htmlspecialchars($dlc->name) ?>"
+                                 style="height: 80px; width: 100%; object-fit: cover;">
+                            <h6 class="text-truncate mb-0 small"><?= htmlspecialchars($dlc->name) ?></h6>
+                            <?php if (!empty($dlc->released)): ?>
+                            <small class="text-muted"><?= date('Y', strtotime($dlc->released)) ?></small>
+                            <?php endif; ?>
+                        </div>
+                    </a>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    
     <!-- Related Games -->
     <?php if (!empty($gameSeries->results)): ?>
     <div class="card mb-4">
