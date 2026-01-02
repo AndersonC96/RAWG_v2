@@ -32,6 +32,13 @@ $basePath = '/RAWG_v2';
                         data-game-image="<?= htmlspecialchars($game->background_image ?? '') ?>">
                     <i class="bi bi-heart"></i>
                 </button>
+                <button class="btn btn-outline-light btn-sm btn-compare" 
+                        data-game-id="<?= $game->id ?>"
+                        data-game-name="<?= htmlspecialchars($game->name) ?>"
+                        data-game-image="<?= htmlspecialchars($game->background_image ?? '') ?>"
+                        title="Comparar">
+                    <i class="bi bi-arrow-left-right"></i>
+                </button>
             </div>
         </div>
         

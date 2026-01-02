@@ -54,5 +54,6 @@
     
     <!-- Custom JS -->
     <script src="/RAWG_v2/public/assets/js/app.js"></script>
+    <script src="/RAWG_v2/public/assets/js/comparison.js"></script>
 </body>
 </html>

@@ -27,7 +27,27 @@ class HomeController extends BaseController
         $page = (int) $this->getParam('page', 1);
         $page = max(1, $page);
 
-        $response = $this->api->getGames($page);
+        // Filters
+        $filters = [];
+        $currentFilters = [
+            'ordering' => $this->getParam('ordering', ''),
+            'year' => $this->getParam('year', ''),
+            'metacritic' => $this->getParam('metacritic', '')
+        ];
+
+        if (!empty($currentFilters['ordering'])) {
+            $filters['ordering'] = $currentFilters['ordering'];
+        }
+
+        if (!empty($currentFilters['year'])) {
+            $filters['dates'] = $currentFilters['year'] . '-01-01,' . $currentFilters['year'] . '-12-31';
+        }
+
+        if (!empty($currentFilters['metacritic'])) {
+            $filters['metacritic'] = $currentFilters['metacritic'] . ',100';
+        }
+
+        $response = $this->api->getGames($page, $filters);
 
         $games = [];
         $featured = null;
@@ -37,7 +57,7 @@ class HomeController extends BaseController
         if ($response && isset($response->results)) {
             $games = $response->results;
             
-            // Select random featured game (with video clip preferred)
+            // featured logic remains...
             $gamesWithClip = array_filter($games, fn($g) => !empty($g->clip));
             $featured = count($gamesWithClip) > 0 
                 ? $gamesWithClip[array_rand($gamesWithClip)]
@@ -45,12 +65,15 @@ class HomeController extends BaseController
 
             // Parse pagination URLs
             if ($response->next) {
-                preg_match('/page=(\d+)/', $response->next, $matches);
-                $next = $matches[1] ?? null;
+                // Keep filters in pagination
+                $query = parse_url($response->next, PHP_URL_QUERY);
+                parse_str($query, $params);
+                $next = $params['page'] ?? null;
             }
             if ($response->previous) {
-                preg_match('/page=(\d+)/', $response->previous, $matches);
-                $previous = $matches[1] ?? null;
+                $query = parse_url($response->previous, PHP_URL_QUERY);
+                parse_str($query, $params);
+                $previous = $params['page'] ?? null;
             }
         }
 
@@ -62,7 +85,8 @@ class HomeController extends BaseController
             'featured' => $featured,
             'currentPage' => $page,
             'nextPage' => $next,
-            'previousPage' => $previous
+            'previousPage' => $previous,
+            'filters' => $currentFilters
         ]);
     }
 }

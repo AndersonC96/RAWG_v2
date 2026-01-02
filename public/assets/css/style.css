@@ -398,6 +398,7 @@ body {
     font-weight: 600;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2; 
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -566,4 +567,117 @@ body {
 
 .btn-favorite.is-favorite i::before {
     content: "\F415"; /* bi-heart-fill */
+}
+
+/* ======================================
+   Comparison Bar
+   ====================================== */
+.comparison-bar {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    width: 100%;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+    z-index: 1040;
+    transition: bottom 0.3s ease;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.comparison-bar.show {
+    bottom: 0;
+}
+
+.comparison-items {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.comparison-item {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #6366f1;
+    background: #2a2a2a;
+    transition: transform 0.2s;
+}
+
+.comparison-item:hover {
+    transform: translateY(-2px);
+}
+
+.comparison-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comparison-item .btn-remove {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 2;
+}
+
+.comparison-item:hover .btn-remove {
+    opacity: 1;
+}
+
+.btn-compare.active {
+    background-color: #6366f1;
+    border-color: #6366f1;
+    color: white !important;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    border-radius: 1rem;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table th, 
+.comparison-table td {
+    padding: 1.5rem;
+    vertical-align: middle;
+}
+
+.comparison-table th {
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    width: 20%;
+}
+
+.comparison-table img.game-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.comparison-winner {
+    color: #4ade80;
+    font-weight: bold;
 }

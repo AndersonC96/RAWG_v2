@@ -46,6 +46,8 @@ use App\Controllers\FavoritesController;
 use App\Controllers\DeveloperController;
 use App\Controllers\PublisherController;
 use App\Controllers\PlatformController;
+use App\Controllers\ComparisonController;
+use App\Controllers\AboutController;
 
 Config::init();
 
@@ -59,6 +61,8 @@ $router->get('/search', SearchController::class, 'index');
 $router->post('/search', SearchController::class, 'index');
 $router->get('/genres', GenreController::class, 'index');
 $router->get('/favorites', FavoritesController::class, 'index');
+$router->get('/compare', ComparisonController::class, 'index');
+$router->get('/about', AboutController::class, 'index');
 
 // New routes
 $router->get('/developers', DeveloperController::class, 'index');

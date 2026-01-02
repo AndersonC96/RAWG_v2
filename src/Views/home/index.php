@@ -70,21 +70,51 @@ $basePath = '/RAWG_v2';
 <!-- Games Grid -->
 <section class="games-section">
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
             <h2 class="section-title mb-0">
                 <i class="bi bi-controller me-2"></i>
                 Jogos em Destaque
             </h2>
-            <div class="view-options">
-                <div class="btn-group btn-group-sm" role="group">
-                    <button type="button" class="btn btn-outline-secondary active" data-view="grid">
-                        <i class="bi bi-grid-fill"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" data-view="list">
-                        <i class="bi bi-list"></i>
-                    </button>
-                </div>
-            </div>
+            
+            <form action="<?= $basePath ?>/" method="GET" class="d-flex flex-wrap gap-2 filters-form">
+                <!-- Ordenação -->
+                <select name="ordering" class="form-select form-select-sm bg-dark text-light border-secondary" style="width: auto;">
+                    <option value="" <?= empty($filters['ordering']) ? 'selected' : '' ?>>Ordenação</option>
+                    <option value="-released" <?= ($filters['ordering'] ?? '') === '-released' ? 'selected' : '' ?>>Lançamento</option>
+                    <option value="-metacritic" <?= ($filters['ordering'] ?? '') === '-metacritic' ? 'selected' : '' ?>>Melhor Avaliados</option>
+                    <option value="name" <?= ($filters['ordering'] ?? '') === 'name' ? 'selected' : '' ?>>Nome (A-Z)</option>
+                </select>
+
+                <!-- Ano -->
+                <select name="year" class="form-select form-select-sm bg-dark text-light border-secondary" style="width: auto;">
+                    <option value="" <?= empty($filters['year']) ? 'selected' : '' ?>>Ano</option>
+                    <?php 
+                    $currentYear = date('Y') + 1;
+                    for ($i = $currentYear; $i >= 1990; $i--): 
+                    ?>
+                    <option value="<?= $i ?>" <?= ($filters['year'] ?? '') == $i ? 'selected' : '' ?>><?= $i ?></option>
+                    <?php endfor; ?>
+                </select>
+
+                <!-- Avaliação -->
+                <select name="metacritic" class="form-select form-select-sm bg-dark text-light border-secondary" style="width: auto;">
+                    <option value="" <?= empty($filters['metacritic']) ? 'selected' : '' ?>>Avaliação</option>
+                    <option value="90" <?= ($filters['metacritic'] ?? '') === '90' ? 'selected' : '' ?>>Extremo (>90)</option>
+                    <option value="80" <?= ($filters['metacritic'] ?? '') === '80' ? 'selected' : '' ?>>Ótimo (>80)</option>
+                    <option value="70" <?= ($filters['metacritic'] ?? '') === '70' ? 'selected' : '' ?>>Bom (>70)</option>
+                    <option value="60" <?= ($filters['metacritic'] ?? '') === '60' ? 'selected' : '' ?>>Médio (>60)</option>
+                </select>
+
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="bi bi-funnel-fill"></i>
+                </button>
+                
+                <?php if (!empty($filters['ordering']) || !empty($filters['year']) || !empty($filters['metacritic'])): ?>
+                <a href="<?= $basePath ?>/" class="btn btn-sm btn-outline-danger" title="Limpar Filtros">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+                <?php endif; ?>
+            </form>
         </div>
         
         <?php if (empty($games)): ?>

@@ -48,6 +48,12 @@ function isActive(string $path, string $currentUri, string $basePath): bool {
                 </a>
             </li>
             <?php endforeach; ?>
+            <li class="nav-item">
+                <a href="<?= $basePath ?>/about" class="nav-link <?= isActive('/about', $currentUri, $basePath) ? 'active' : '' ?>">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Sobre</span>
+                </a>
+            </li>
         </ul>
     </nav>
     
