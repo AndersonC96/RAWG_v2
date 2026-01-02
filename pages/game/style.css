@@ -1,250 +1,493 @@
-.flyer-game{
-    width: 100%;
-    height: 350px;
+/**
+ * Game Details Page Styles
+ */
+
+/* Hero Section */
+.game-hero {
     position: relative;
-    color: #fff;
+    height: 400px;
+    overflow: hidden;
 }
-.flyer-game .background{
-    width: 100%;
-    height: 100%;
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
 }
-.flyer-game .background::before{
-    background-color: rgba(0, 0, 0, 0.8);
+
+.hero-background::before {
     content: '';
-    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(13, 11, 30, 0.5) 0%,
+        rgba(13, 11, 30, 0.8) 50%,
+        var(--bg-dark) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
     height: 100%;
-    position: absolute;
-    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-xl);
+    max-width: 1200px;
+    margin: 0 auto;
 }
-.flyer-game-description{
-    width: 100%;
-    max-width: 1000px;
-    position: absolute;
-    top: 150px;
-    left: 50%;
-    transform: translateX(-50%);
+
+.hero-info h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-meta {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
 }
-.flyer-game-description span{
-    color: #a9a5bc;
-}
-h1{
-    font-size: 30px;
-}
-.container{
-    background: #332e59;
-    position: relative;
-    z-index: 1000;
-    width: 100%;
-    max-width: 1000px;
-    margin: -150px auto 0;
-    border-radius: 10px;
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.2);
-}
-.container > div ul{
-    list-style: none;
-    width: 100%;
-}
-.container ul h4{
-    margin-top: 10px;
-    font-size: 25px;
-    text-align: center;
-}
-.container ul li{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    padding-top: 5px;
-    font-size: 15px;
-}
-.container ul li div{
-    margin-top: 5px;
-}
-.container ul li div span{
-    opacity: 0.6;
-}
-.container ul li div.ratings{
-    display: flex;
-    flex-direction: column;
-    margin-top: -5px;
-}
-.container ul li div.ratings div{
-    font-size: 13px;
-    display: flex;
-    flex-direction: column;
-}
-.container ul li div.ratings div span.porcent{
-    width: 100%;
-    height: 5px;
-    border-radius: 2.5px;
-    background: #a9a5bc;
-    position: relative;
-}
-.container ul li div.ratings div span.porcent > span{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 5px;
-    border-radius: 2.5px;
-    background: #1b162f;
-}
-.container p{
-    text-align: justify;
-    line-height: 23px;
-}
-div.game-expecification{
-    text-align: center;
-    border-top: 1px solid #1b162f;
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 10px;
-}
-div.game-expecification > div{
-    padding: 10px;
-}
-div.game-expecification div video{
-    width: 100%;
-    border-radius: 10px;
-}
-main{
-    padding: 10px;
-}
-.tags{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.tags a{
-    background: #1b162f;
-    display: flex;
-    align-items: center;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 20px;
-    text-decoration: none;
-    color: #a9a5bc;
-    opacity: 0.8;
-}
-.tags a img{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-}
-.tags a span{
-    margin: 0 5px;
-}
-.tags a:hover{
-    opacity: 1;
-}
-.store{
-    width: 100%;
-    border-top: 1px solid #1b162f;
-    margin-top: 10px;
-}
-.store h3{
-    flex: 1;
-    text-align: center;
-    font-size: 20px;
-}
-.store div{
-    display: flex;
-    flex-wrap: wrap;
+
+.metacritic-badge {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
 }
-.store a{
-    background: #1b162f;
+
+.metacritic-badge.high { background: #00ce7a; }
+.metacritic-badge.mid { background: #ffbd3f; }
+.metacritic-badge.low { background: #ff6874; }
+
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.rating-badge .material-icons {
+    font-size: 16px;
+    color: #ffd700;
+}
+
+.btn-favorite {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--gradient-accent);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.btn-favorite:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-neon);
+}
+
+/* Main Container */
+.game-container {
+    max-width: 1100px;
+    margin: -80px auto var(--space-xl);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    position: relative;
+    z-index: 10;
+}
+
+/* Sections */
+.game-section {
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.game-section:last-child {
+    border-bottom: none;
+}
+
+.section-title {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    margin: 5px;
-    width: 100px;
-    height: 150px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #a9a5bc;
-    opacity: 0.8;
+    gap: var(--space-sm);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
 }
-.store a img{
-    border-radius: 10px 10px 0 0;
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
+
+.section-title .material-icons {
+    color: var(--color-primary);
 }
-.store a span{
-    padding: 5px;
-    margin: 0 5px;
-    text-align: center;
+
+/* Description */
+.description-content {
+    color: var(--text-secondary);
+    line-height: 1.8;
 }
-.store a:hover{
-    opacity: 1;
+
+.description-content p {
+    margin-bottom: var(--space-md);
 }
-.game-genres{
-    display: flex;
-    flex-direction: column;
+
+.description-content h3 {
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    margin: var(--space-lg) 0 var(--space-md);
 }
-.game-genres h4{
-    margin-top: 10px;
-    font-size: 25px;
-    text-align: center;
-}
-.game-genres div{
-    display: flex;
-    flex-wrap: wrap;
-}
-.game-genres a{
-    text-decoration: none;
-    margin: 5px;
-    color: #a9a5bc;
-    opacity: 0.8;
-}
-.game-genres a:hover{
-    opacity: 1;
-}
-.grid-screenshot{
+
+/* Info Grid */
+.info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
 }
-.grid-screenshot .card-screenshot{
-    width: 100%;
-    height: 200px;
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background: var(--glass-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
 }
-.grid-screenshot .card-screenshot img{
+
+.info-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Ratings */
+.ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.rating-card {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.rating-title {
+    display: block;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+}
+
+.rating-bar {
+    height: 8px;
+    background: var(--bg-darker);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+}
+
+.rating-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow);
+}
+
+.rating-percent {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Screenshots */
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+}
+
+.screenshot-item {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 16/9;
+}
+
+.screenshot-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    transition: transform var(--transition-base);
 }
-@media(max-width: 750px){
-    .flyer-game-description{
-        top: 130px;
-        flex-direction: column;
-    }
+
+.screenshot-item:hover img {
+    transform: scale(1.1);
 }
-@media(max-width: 500px){
-    .container{
-        font-size: 25px;
+
+.screenshot-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.screenshot-item:hover .screenshot-overlay {
+    opacity: 1;
+}
+
+.screenshot-overlay .material-icons {
+    font-size: 48px;
+    color: var(--text-primary);
+}
+
+/* Content Cards (DLCs, Game Series) */
+.content-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.content-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.content-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-neon);
+}
+
+.content-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.content-card-info {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.content-card-info strong {
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.content-card-info span {
+    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+}
+
+/* Stores */
+.stores-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.store-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all var(--transition-base);
+}
+
+.store-card:hover {
+    color: var(--text-primary);
+    background: var(--gradient-primary);
+    transform: translateY(-2px);
+}
+
+.store-name {
+    font-weight: 500;
+}
+
+.store-card .material-icons {
+    font-size: 18px;
+}
+
+/* Tags */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.tag-badge {
+    padding: var(--space-xs) var(--space-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    transition: all var(--transition-base);
+}
+
+.tag-badge:hover {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border-color: transparent;
+}
+
+/* Error State */
+.error-state {
+    text-align: center;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    margin: var(--space-xl) auto;
+    max-width: 500px;
+}
+
+.error-state .material-icons {
+    font-size: 64px;
+    color: var(--neon-pink);
+    margin-bottom: var(--space-md);
+}
+
+.error-state h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.error-state p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--gradient-primary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-base);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-neon);
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.lightbox-close:hover {
+    background: var(--gradient-primary);
+    transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-hero {
+        height: 300px;
     }
-    .container p{
-        line-height: 30px;
+    
+    .hero-info h1 {
+        font-size: var(--font-size-xl);
     }
-    .flyer-game-description{
-        top: 105px;
+    
+    .game-container {
+        margin: -40px var(--space-md) var(--space-lg);
+        padding: var(--space-lg);
     }
-    .container ul li div.ratings div{
-        font-size: 20px;
-        margin-bottom: 5px;
-    }
-    h1{
-        text-align: center;
-    }
-    .store a{
-        width: 150px;
-        height: 180px;
+    
+    .info-grid,
+    .ratings-grid,
+    .screenshots-grid,
+    .content-cards {
+        grid-template-columns: 1fr;
     }
 }

@@ -1,32 +1,131 @@
-.header-genres{
-    width: 300px;
+/**
+ * Genres Page Styles
+ */
+
+.genre-header {
     display: flex;
     align-items: center;
-    margin: 10px 0;
-    position: sticky;
-    top: 10px;
-    z-index: 3000;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
 }
-.header-genres select{
-    width: 100%;
-    max-width: 250px;
-    height: 40px;
-    background: #332e59;
-    border: 0;
-    opacity: 0.6;
-    border-radius: 20px 0 0 20px;
-    padding: 10px 20px;
+
+.genre-header h1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: var(--font-size-xl);
+    color: var(--text-primary);
+}
+
+.genre-header h1 .material-icons {
+    color: var(--color-primary);
+}
+
+/* Genre Filter */
+.genre-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+}
+
+.genre-filter label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.genre-filter .material-icons {
+    font-size: 20px;
+    color: var(--color-primary);
+}
+
+.genre-filter select {
+    background: transparent;
+    border: none;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    cursor: pointer;
+    outline: none;
+    min-width: 150px;
+}
+
+.genre-filter select option {
+    background: var(--bg-darker);
+    color: var(--text-primary);
+}
+
+/* Genre Tags */
+.genre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.genre-tag {
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
     text-decoration: none;
-    color: #a9a5bc;
-    display: flex;
-    align-items: center;
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all var(--transition-base);
 }
-.header-genres button{
-    width: 50px;
-    height: 40px;
-    background: #a9a5bc;
-    border: 0;
-    border-radius: 0 20px 20px 0;
-    color: #332e59;
+
+.genre-tag:hover {
+    background: var(--bg-card);
+    border-color: var(--color-primary);
+    color: var(--text-primary);
+}
+
+.genre-tag.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-neon);
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    max-width: 400px;
+    margin: var(--space-xl) auto;
+}
+
+.no-results .material-icons {
+    font-size: 64px;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.no-results h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.no-results p {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .genre-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .genre-filter {
+        justify-content: space-between;
+    }
 }

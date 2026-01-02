@@ -1,32 +1,167 @@
-.header-search{
-    width: 350px;
+/**
+ * Search Page Styles
+ */
+
+.search-hero {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.search-hero h1 {
     display: flex;
     align-items: center;
-    margin: 10px 0;
-    position: sticky;
-    top: 10px;
-    z-index: 3000;
+    justify-content: center;
+    gap: var(--space-md);
+    font-size: var(--font-size-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
 }
-.header-search input{
-    width: 100%;
-    max-width: 300px;
-    height: 40px;
-    background: #332e59;
-    border: 0;
-    opacity: 0.6;
-    border-radius: 20px 0 0 20px;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #a9a5bc;
+
+.search-hero h1 .material-icons {
+    font-size: 40px;
+    color: var(--color-primary);
+}
+
+.search-hero p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+/* Search Form */
+.search-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input-wrapper {
     display: flex;
     align-items: center;
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
 }
-.header-search button{
-    width: 50px;
-    height: 40px;
-    background: #a9a5bc;
-    border: 0;
-    border-radius: 0 20px 20px 0;
-    color: #332e59;
+
+.search-input-wrapper:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-neon);
+}
+
+.search-input-wrapper .material-icons {
+    color: var(--text-muted);
+}
+
+.search-input-wrapper input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+    outline: none;
+}
+
+.search-input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-input-wrapper button {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.search-input-wrapper button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-neon);
+}
+
+/* Recent Searches */
+.recent-searches {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.recent-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.recent-searches button {
+    padding: var(--space-xs) var(--space-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.recent-searches button:hover {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border-color: transparent;
+}
+
+/* Results Header */
+.results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.results-header h2 {
+    font-size: var(--font-size-xl);
+    color: var(--text-primary);
+}
+
+.results-count {
+    padding: var(--space-xs) var(--space-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.no-results .material-icons {
+    font-size: 64px;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.no-results h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.no-results p {
+    color: var(--text-secondary);
 }

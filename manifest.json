@@ -1,0 +1,29 @@
+{
+    "name": "RAWG API",
+    "short_name": "RAWG",
+    "description": "Explore milhares de jogos com informações detalhadas, screenshots, avaliações e muito mais.",
+    "start_url": "/RAWG_v2/index.php",
+    "display": "standalone",
+    "background_color": "#0d0b1e",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/RAWG_v2/assets/redoc-logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/RAWG_v2/assets/apple-icon-120x120.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        }
+    ],
+    "categories": [
+        "games",
+        "entertainment"
+    ],
+    "lang": "pt-BR",
+    "dir": "ltr"
+}
