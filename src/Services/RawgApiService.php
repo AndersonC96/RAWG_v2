@@ -219,4 +219,133 @@ class RawgApiService
     {
         return $this->request('platforms');
     }
+
+    /**
+     * Get game trailers/movies.
+     * 
+     * @param int $id Game ID
+     * @return object|null Trailers
+     */
+    public function getGameTrailers(int $id): ?object
+    {
+        return $this->request("games/{$id}/movies");
+    }
+
+    /**
+     * Get developers list.
+     * 
+     * @param int $page Page number
+     * @return object|null Developers
+     */
+    public function getDevelopers(int $page = 1): ?object
+    {
+        return $this->request('developers', ['page' => $page, 'page_size' => 20]);
+    }
+
+    /**
+     * Get developer details.
+     * 
+     * @param int $id Developer ID
+     * @return object|null Developer
+     */
+    public function getDeveloper(int $id): ?object
+    {
+        return $this->request("developers/{$id}");
+    }
+
+    /**
+     * Get games by developer.
+     * 
+     * @param int $developerId Developer ID
+     * @param int $page Page number
+     * @return object|null Games
+     */
+    public function getGamesByDeveloper(int $developerId, int $page = 1): ?object
+    {
+        return $this->request('games', [
+            'developers' => $developerId,
+            'page' => $page
+        ]);
+    }
+
+    /**
+     * Get publishers list.
+     * 
+     * @param int $page Page number
+     * @return object|null Publishers
+     */
+    public function getPublishers(int $page = 1): ?object
+    {
+        return $this->request('publishers', ['page' => $page, 'page_size' => 20]);
+    }
+
+    /**
+     * Get publisher details.
+     * 
+     * @param int $id Publisher ID
+     * @return object|null Publisher
+     */
+    public function getPublisher(int $id): ?object
+    {
+        return $this->request("publishers/{$id}");
+    }
+
+    /**
+     * Get tags list.
+     * 
+     * @param int $page Page number
+     * @return object|null Tags
+     */
+    public function getTags(int $page = 1): ?object
+    {
+        return $this->request('tags', ['page' => $page, 'page_size' => 40]);
+    }
+
+    /**
+     * Get stores list.
+     * 
+     * @return object|null Stores
+     */
+    public function getStores(): ?object
+    {
+        return $this->request('stores');
+    }
+
+    /**
+     * Get games with advanced filters.
+     * 
+     * @param array<string, mixed> $filters
+     * @return object|null Games
+     */
+    public function getGamesFiltered(array $filters = []): ?object
+    {
+        $params = [
+            'page' => $filters['page'] ?? 1,
+            'page_size' => $filters['page_size'] ?? 20
+        ];
+
+        if (!empty($filters['platforms'])) {
+            $params['platforms'] = $filters['platforms'];
+        }
+        if (!empty($filters['dates'])) {
+            $params['dates'] = $filters['dates'];
+        }
+        if (!empty($filters['metacritic'])) {
+            $params['metacritic'] = $filters['metacritic'];
+        }
+        if (!empty($filters['ordering'])) {
+            $params['ordering'] = $filters['ordering'];
+        }
+        if (!empty($filters['tags'])) {
+            $params['tags'] = $filters['tags'];
+        }
+        if (!empty($filters['developers'])) {
+            $params['developers'] = $filters['developers'];
+        }
+        if (!empty($filters['publishers'])) {
+            $params['publishers'] = $filters['publishers'];
+        }
+
+        return $this->request('games', $params);
+    }
 }

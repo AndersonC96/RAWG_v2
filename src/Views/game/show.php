@@ -105,6 +105,32 @@ $basePath = '/RAWG_v2';
             </div>
             <?php endif; ?>
             
+            <!-- Trailers -->
+            <?php if (!empty($trailers->results)): ?>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center mb-3">
+                        <i class="bi bi-play-circle me-2 text-danger"></i>
+                        Trailers (<?= count($trailers->results) ?>)
+                    </h5>
+                    <div class="row g-3">
+                        <?php foreach ($trailers->results as $trailer): ?>
+                        <div class="col-md-6">
+                            <div class="ratio ratio-16x9 rounded overflow-hidden">
+                                <video src="<?= htmlspecialchars($trailer->data->max ?? $trailer->data->{'480'} ?? '') ?>" 
+                                       poster="<?= htmlspecialchars($trailer->preview ?? '') ?>"
+                                       controls
+                                       preload="metadata"
+                                       class="bg-dark"></video>
+                            </div>
+                            <p class="text-muted small mt-2 mb-0"><?= htmlspecialchars($trailer->name ?? 'Trailer') ?></p>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            
             <!-- Achievements -->
             <?php if (!empty($achievements->results)): ?>
             <div class="card mb-4">

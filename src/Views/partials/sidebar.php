@@ -10,6 +10,9 @@ $menuItems = [
     ['path' => '/', 'icon' => 'bi-house-fill', 'label' => 'Home'],
     ['path' => '/search', 'icon' => 'bi-search', 'label' => 'Pesquisar'],
     ['path' => '/genres', 'icon' => 'bi-collection-fill', 'label' => 'Gêneros'],
+    ['path' => '/platforms', 'icon' => 'bi-display', 'label' => 'Plataformas'],
+    ['path' => '/developers', 'icon' => 'bi-people-fill', 'label' => 'Desenvolvedores'],
+    ['path' => '/publishers', 'icon' => 'bi-building', 'label' => 'Publishers'],
     ['path' => '/favorites', 'icon' => 'bi-heart-fill', 'label' => 'Favoritos'],
 ];
 

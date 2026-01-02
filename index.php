@@ -43,6 +43,9 @@ use App\Controllers\GameController;
 use App\Controllers\SearchController;
 use App\Controllers\GenreController;
 use App\Controllers\FavoritesController;
+use App\Controllers\DeveloperController;
+use App\Controllers\PublisherController;
+use App\Controllers\PlatformController;
 
 Config::init();
 
@@ -56,6 +59,13 @@ $router->get('/search', SearchController::class, 'index');
 $router->post('/search', SearchController::class, 'index');
 $router->get('/genres', GenreController::class, 'index');
 $router->get('/favorites', FavoritesController::class, 'index');
+
+// New routes
+$router->get('/developers', DeveloperController::class, 'index');
+$router->get('/developer/{id}', DeveloperController::class, 'show');
+$router->get('/publishers', PublisherController::class, 'index');
+$router->get('/publisher/{id}', PublisherController::class, 'show');
+$router->get('/platforms', PlatformController::class, 'index');
 
 // Dispatch request
 $router->dispatch();
