@@ -46,7 +46,7 @@ class GameController extends BaseController
         $trailers = $this->api->getGameTrailers($gameId);
         $additions = $this->api->getGameAdditions($gameId);
         $gameSeries = $this->api->getGameSeries($gameId);
-        $achievements = $this->api->getGameAchievements($gameId);
+        $achievements = $this->api->getAllGameAchievements($gameId);
         $devTeam = $this->api->getGameDevTeam($gameId);
 
         $this->setTitle($game->name . ' - RAWG API');
