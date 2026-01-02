@@ -11,10 +11,19 @@ $basePath = '/RAWG_v2';
 <div class="container-fluid">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">
-            <i class="bi bi-people-fill me-2 text-primary"></i>
-            Desenvolvedores
-        </h2>
+        <div>
+            <h2 class="mb-0 d-flex align-items-center gap-2">
+                <i class="bi bi-people-fill text-primary"></i>
+                Desenvolvedores
+            </h2>
+            <?php
+            $startItem = ($currentPage - 1) * $pageSize + 1;
+            $endItem = min($currentPage * $pageSize, $totalCount);
+            ?>
+            <small class="text-muted">
+                Exibindo <?= $startItem ?>-<?= $endItem ?> de <?= number_format($totalCount, 0, ',', '.') ?> desenvolvedores
+            </small>
+        </div>
     </div>
     
     <?php if (empty($developers)): ?>
@@ -31,22 +40,41 @@ $basePath = '/RAWG_v2';
             <a href="<?= $basePath ?>/developer/<?= $dev->id ?>" class="text-decoration-none">
                 <div class="card h-100 developer-card">
                     <div class="card-img-wrapper">
-                        <img src="<?= htmlspecialchars($dev->image_background ?? '') ?>" 
+                        <?php if (!empty($dev->image_background)): ?>
+                        <img src="<?= htmlspecialchars($dev->image_background) ?>" 
                              class="card-img-top" 
                              alt="<?= htmlspecialchars($dev->name) ?>"
+                             loading="lazy"
                              style="height: 150px; object-fit: cover;">
+                        <?php else: ?>
+                        <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <i class="bi bi-image text-muted fs-1"></i>
+                        </div>
+                        <?php endif; ?>
                         <div class="card-overlay">
                             <span class="badge bg-primary fs-6">
-                                <?= $dev->games_count ?? 0 ?> jogos
+                                <?= number_format($dev->games_count ?? 0, 0, ',', '.') ?> jogos
                             </span>
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-body"><?= htmlspecialchars($dev->name) ?></h5>
-                        <div class="card-games">
-                            <?php foreach (array_slice($dev->games ?? [], 0, 3) as $game): ?>
-                            <small class="text-muted d-block text-truncate">• <?= htmlspecialchars($game->name) ?></small>
-                            <?php endforeach; ?>
+                        <h5 class="card-title text-body mb-2"><?= htmlspecialchars($dev->name) ?></h5>
+                        <div class="card-games small">
+                            <?php 
+                            $topGames = array_slice($dev->games ?? [], 0, 3);
+                            if (!empty($topGames)):
+                                foreach ($topGames as $game): 
+                            ?>
+                            <div class="text-muted text-truncate">
+                                <i class="bi bi-controller me-1" style="font-size: 0.75rem;"></i>
+                                <?= htmlspecialchars($game->name) ?>
+                            </div>
+                            <?php 
+                                endforeach;
+                            else:
+                            ?>
+                            <span class="text-muted fst-italic">Sem jogos em destaque</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -56,18 +84,27 @@ $basePath = '/RAWG_v2';
     </div>
     
     <!-- Pagination -->
-    <?php if (!empty($nextPage) || !empty($previousPage)): ?>
-    <nav class="mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item <?= $previousPage === null ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $basePath ?>/developers?page=<?= $previousPage ?? 1 ?>">
-                    <i class="bi bi-chevron-left"></i> Anterior
+    <?php if ($totalCount > $pageSize): ?>
+    <nav class="mt-5 mb-4">
+        <ul class="pagination justify-content-center align-items-center gap-2">
+            <!-- Previous -->
+            <li class="page-item <?= empty($previousPage) ? 'disabled' : '' ?>">
+                <a class="page-link rounded-pill px-4" href="<?= $basePath ?>/developers?page=<?= $previousPage ?? 1 ?>">
+                    <i class="bi bi-arrow-left me-2"></i> Anterior
                 </a>
             </li>
-            <li class="page-item active"><span class="page-link"><?= $currentPage ?></span></li>
-            <li class="page-item <?= $nextPage === null ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $basePath ?>/developers?page=<?= $nextPage ?>">
-                    Próxima <i class="bi bi-chevron-right"></i>
+
+            <!-- Current Page Info -->
+            <li class="page-item disabled">
+                <span class="page-link border-0 bg-transparent text-muted">
+                    Página <?= $currentPage ?> de <?= ceil($totalCount / $pageSize) ?>
+                </span>
+            </li>
+
+            <!-- Next -->
+            <li class="page-item <?= empty($nextPage) ? 'disabled' : '' ?>">
+                <a class="page-link rounded-pill px-4" href="<?= $basePath ?>/developers?page=<?= $nextPage ?? $currentPage ?>">
+                    Próxima <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </li>
         </ul>

@@ -33,6 +33,9 @@ class DeveloperController extends BaseController
         $next = null;
         $previous = null;
 
+        $totalCount = $response->count ?? 0;
+        $pageSize = 20; // Default RAWG page size
+
         if ($response) {
             if ($response->next) {
                 preg_match('/page=(\d+)/', $response->next, $matches);
@@ -50,7 +53,9 @@ class DeveloperController extends BaseController
             'developers' => $developers,
             'currentPage' => $page,
             'nextPage' => $next,
-            'previousPage' => $previous
+            'previousPage' => $previous,
+            'totalCount' => $totalCount,
+            'pageSize' => $pageSize
         ]);
     }
 
