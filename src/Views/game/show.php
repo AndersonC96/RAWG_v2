@@ -325,12 +325,15 @@ $basePath = '/RAWG_v2';
             
             <!-- Development Team -->
             <?php if (!empty($devTeam->results)): ?>
+            <?php $totalDevTeam = count($devTeam->results); ?>
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title d-flex align-items-center mb-3">
                         <i class="bi bi-person-badge me-2 text-info"></i>
-                        Equipe de Desenvolvimento (<?= count($devTeam->results) ?>)
+                        Equipe de Desenvolvimento (<?= $totalDevTeam ?>)
                     </h5>
+                    
+                    <!-- Initial 12 members -->
                     <div class="row g-3">
                         <?php foreach (array_slice($devTeam->results, 0, 12) as $creator): ?>
                         <div class="col-md-4 col-6">
@@ -359,6 +362,74 @@ $basePath = '/RAWG_v2';
                         </div>
                         <?php endforeach; ?>
                     </div>
+                    
+                    <!-- Collapsible remaining members -->
+                    <?php if ($totalDevTeam > 12): ?>
+                    <div class="collapse" id="moreDevTeam">
+                        <div class="row g-3 mt-0">
+                            <?php foreach (array_slice($devTeam->results, 12) as $creator): ?>
+                            <div class="col-md-4 col-6">
+                                <div class="creator-card d-flex align-items-center gap-2 p-2 rounded bg-body-tertiary">
+                                    <?php if (!empty($creator->image)): ?>
+                                    <img src="<?= htmlspecialchars($creator->image) ?>" 
+                                         alt="<?= htmlspecialchars($creator->name) ?>"
+                                         class="rounded-circle"
+                                         width="40" height="40"
+                                         style="object-fit: cover;">
+                                    <?php else: ?>
+                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" 
+                                         style="width: 40px; height: 40px;">
+                                        <i class="bi bi-person text-white"></i>
+                                    </div>
+                                    <?php endif; ?>
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <h6 class="mb-0 text-truncate small"><?= htmlspecialchars($creator->name) ?></h6>
+                                        <?php if (!empty($creator->positions)): ?>
+                                        <small class="text-muted text-truncate d-block">
+                                            <?= htmlspecialchars($creator->positions[0]->name ?? '') ?>
+                                        </small>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    
+                    <!-- Toggle Button -->
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-info" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#moreDevTeam"
+                                aria-expanded="false">
+                            <span class="show-more-dev">
+                                <i class="bi bi-chevron-down me-1"></i> Ver mais <?= $totalDevTeam - 12 ?> membros
+                            </span>
+                            <span class="show-less-dev d-none">
+                                <i class="bi bi-chevron-up me-1"></i> Ver menos
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const collapseDevEl = document.getElementById('moreDevTeam');
+                        if (collapseDevEl) {
+                            collapseDevEl.addEventListener('show.bs.collapse', () => {
+                                const btn = document.querySelector('[data-bs-target="#moreDevTeam"]');
+                                btn.querySelector('.show-more-dev').classList.add('d-none');
+                                btn.querySelector('.show-less-dev').classList.remove('d-none');
+                            });
+                            collapseDevEl.addEventListener('hide.bs.collapse', () => {
+                                const btn = document.querySelector('[data-bs-target="#moreDevTeam"]');
+                                btn.querySelector('.show-more-dev').classList.remove('d-none');
+                                btn.querySelector('.show-less-dev').classList.add('d-none');
+                            });
+                        }
+                    });
+                    </script>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>

@@ -238,14 +238,51 @@ class RawgApiService
     }
 
     /**
-     * Get game development team.
+     * Get game development team (single page).
      * 
      * @param int $id Game ID
+     * @param int $page Page number
      * @return object|null Dev team
      */
-    public function getGameDevTeam(int $id): ?object
+    public function getGameDevTeam(int $id, int $page = 1): ?object
     {
-        return $this->request("games/{$id}/development-team");
+        return $this->request("games/{$id}/development-team", ['page' => $page]);
+    }
+
+    /**
+     * Get ALL game development team with automatic pagination.
+     * 
+     * @param int $id Game ID
+     * @param int $maxPages Maximum pages to fetch (default 10)
+     * @return object|null All dev team combined
+     */
+    public function getAllGameDevTeam(int $id, int $maxPages = 10): ?object
+    {
+        $allResults = [];
+        $page = 1;
+        $totalCount = 0;
+        
+        do {
+            $response = $this->getGameDevTeam($id, $page);
+            
+            if (!$response || empty($response->results)) {
+                break;
+            }
+            
+            if ($page === 1) {
+                $totalCount = $response->count ?? 0;
+            }
+            
+            $allResults = array_merge($allResults, $response->results);
+            $hasMore = !empty($response->next);
+            $page++;
+            
+        } while ($hasMore && $page <= $maxPages);
+        
+        return (object) [
+            'count' => $totalCount,
+            'results' => $allResults
+        ];
     }
 
     /**
