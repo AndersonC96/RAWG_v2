@@ -161,6 +161,46 @@ $basePath = '/RAWG_v2';
                 </div>
             </div>
             <?php endif; ?>
+            
+            <!-- Development Team -->
+            <?php if (!empty($devTeam->results)): ?>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center mb-3">
+                        <i class="bi bi-person-badge me-2 text-info"></i>
+                        Equipe de Desenvolvimento (<?= count($devTeam->results) ?>)
+                    </h5>
+                    <div class="row g-3">
+                        <?php foreach (array_slice($devTeam->results, 0, 12) as $creator): ?>
+                        <div class="col-md-4 col-6">
+                            <div class="creator-card d-flex align-items-center gap-2 p-2 rounded bg-body-tertiary">
+                                <?php if (!empty($creator->image)): ?>
+                                <img src="<?= htmlspecialchars($creator->image) ?>" 
+                                     alt="<?= htmlspecialchars($creator->name) ?>"
+                                     class="rounded-circle"
+                                     width="40" height="40"
+                                     style="object-fit: cover;">
+                                <?php else: ?>
+                                <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" 
+                                     style="width: 40px; height: 40px;">
+                                    <i class="bi bi-person text-white"></i>
+                                </div>
+                                <?php endif; ?>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate small"><?= htmlspecialchars($creator->name) ?></h6>
+                                    <?php if (!empty($creator->positions)): ?>
+                                    <small class="text-muted text-truncate d-block">
+                                        <?= htmlspecialchars($creator->positions[0]->name ?? '') ?>
+                                    </small>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
         
         <!-- Right Column -->
