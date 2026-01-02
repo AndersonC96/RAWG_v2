@@ -1,4 +1,4 @@
-# RAWG API - Portfolio Project 🎮
+# RAWG API 🎮
 
 <div align="center">
 
