@@ -36,16 +36,9 @@ class DeveloperController extends BaseController
         $totalCount = $response->count ?? 0;
         $pageSize = 20; // Default RAWG page size
 
-        if ($response) {
-            if ($response->next) {
-                preg_match('/page=(\d+)/', $response->next, $matches);
-                $next = $matches[1] ?? null;
-            }
-            if ($response->previous) {
-                preg_match('/page=(\d+)/', $response->previous, $matches);
-                $previous = $matches[1] ?? null;
-            }
-        }
+        // Calculate pagination based on current page and response
+        $next = ($response->next ?? null) ? $page + 1 : null;
+        $previous = $page > 1 ? $page - 1 : null;
 
         $this->setTitle('Desenvolvedores - RAWG API');
 
