@@ -232,12 +232,15 @@ $basePath = '/RAWG_v2';
             
             <!-- Achievements -->
             <?php if (!empty($achievements->results)): ?>
+            <?php $totalAchievements = count($achievements->results); ?>
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title d-flex align-items-center mb-3">
                         <i class="bi bi-trophy me-2 text-warning"></i>
                         Conquistas (<?= $achievements->count ?>)
                     </h5>
+                    
+                    <!-- Initial 8 achievements -->
                     <div class="row g-3">
                         <?php foreach (array_slice($achievements->results, 0, 8) as $achievement): ?>
                         <div class="col-md-6">
@@ -257,6 +260,65 @@ $basePath = '/RAWG_v2';
                         </div>
                         <?php endforeach; ?>
                     </div>
+                    
+                    <!-- Collapsible remaining achievements -->
+                    <?php if ($totalAchievements > 8): ?>
+                    <div class="collapse" id="moreAchievements">
+                        <div class="row g-3 mt-0">
+                            <?php foreach (array_slice($achievements->results, 8) as $achievement): ?>
+                            <div class="col-md-6">
+                                <div class="achievement-card d-flex gap-3 p-3 rounded bg-body-tertiary">
+                                    <img src="<?= htmlspecialchars($achievement->image) ?>" 
+                                         alt="<?= htmlspecialchars($achievement->name) ?>"
+                                         class="achievement-icon rounded"
+                                         width="48" height="48">
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1"><?= htmlspecialchars($achievement->name) ?></h6>
+                                        <small class="text-muted d-block"><?= htmlspecialchars($achievement->description) ?></small>
+                                        <small class="text-success">
+                                            <i class="bi bi-percent"></i> <?= $achievement->percent ?>% desbloquearam
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    
+                    <!-- Toggle Button -->
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-warning" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#moreAchievements"
+                                aria-expanded="false">
+                            <span class="show-more">
+                                <i class="bi bi-chevron-down me-1"></i> Ver mais <?= $totalAchievements - 8 ?> conquistas
+                            </span>
+                            <span class="show-less d-none">
+                                <i class="bi bi-chevron-up me-1"></i> Ver menos
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const collapseEl = document.getElementById('moreAchievements');
+                        if (collapseEl) {
+                            collapseEl.addEventListener('show.bs.collapse', () => {
+                                const btn = document.querySelector('[data-bs-target="#moreAchievements"]');
+                                btn.querySelector('.show-more').classList.add('d-none');
+                                btn.querySelector('.show-less').classList.remove('d-none');
+                            });
+                            collapseEl.addEventListener('hide.bs.collapse', () => {
+                                const btn = document.querySelector('[data-bs-target="#moreAchievements"]');
+                                btn.querySelector('.show-more').classList.remove('d-none');
+                                btn.querySelector('.show-less').classList.add('d-none');
+                            });
+                        }
+                    });
+                    </script>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>
