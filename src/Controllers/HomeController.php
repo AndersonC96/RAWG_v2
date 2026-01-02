@@ -57,11 +57,14 @@ class HomeController extends BaseController
         if ($response && isset($response->results)) {
             $games = $response->results;
             
-            // featured logic remains...
+            // Select random featured game
             $gamesWithClip = array_filter($games, fn($g) => !empty($g->clip));
-            $featured = count($gamesWithClip) > 0 
-                ? $gamesWithClip[array_rand($gamesWithClip)]
-                : ($games[array_rand($games)] ?? null);
+            
+            if (!empty($gamesWithClip)) {
+                $featured = $gamesWithClip[array_rand($gamesWithClip)];
+            } elseif (!empty($games)) {
+                $featured = $games[array_rand($games)];
+            }
 
             // Parse pagination URLs
             if ($response->next) {
