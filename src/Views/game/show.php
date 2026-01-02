@@ -85,25 +85,68 @@ $basePath = '/RAWG_v2';
                         <i class="bi bi-images me-2 text-primary"></i>
                         Screenshots (<?= count($screenshots->results) ?>)
                     </h5>
-                    <div class="row g-3">
-                        <?php foreach ($screenshots->results as $screenshot): ?>
-                        <div class="col-md-4 col-6">
-                            <a href="<?= htmlspecialchars($screenshot->image) ?>" 
-                               data-bs-toggle="modal" 
-                               data-bs-target="#imageModal"
-                               data-image="<?= htmlspecialchars($screenshot->image) ?>"
-                               class="screenshot-link">
+                    
+                    <!-- Main Carousel -->
+                    <div id="screenshotCarousel" class="carousel slide mb-3" data-bs-ride="false">
+                        <div class="carousel-inner rounded overflow-hidden">
+                            <?php foreach ($screenshots->results as $index => $screenshot): ?>
+                            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                                 <img src="<?= htmlspecialchars($screenshot->image) ?>" 
-                                     class="img-fluid rounded screenshot-thumb" 
-                                     alt="Screenshot"
-                                     loading="lazy"
-                                     style="height: 120px; width: 100%; object-fit: cover;">
-                            </a>
+                                     class="d-block w-100 screenshot-main" 
+                                     alt="Screenshot <?= $index + 1 ?>"
+                                     data-bs-toggle="modal" 
+                                     data-bs-target="#imageModal"
+                                     data-image="<?= htmlspecialchars($screenshot->image) ?>"
+                                     style="height: 400px; object-fit: cover; cursor: pointer;">
+                            </div>
+                            <?php endforeach; ?>
                         </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Thumbnails -->
+                    <div class="screenshot-thumbnails d-flex gap-2 overflow-auto pb-2">
+                        <?php foreach ($screenshots->results as $index => $screenshot): ?>
+                        <img src="<?= htmlspecialchars($screenshot->image) ?>" 
+                             class="screenshot-thumb rounded <?= $index === 0 ? 'active' : '' ?>"
+                             alt="Thumb <?= $index + 1 ?>"
+                             data-bs-target="#screenshotCarousel"
+                             data-bs-slide-to="<?= $index ?>"
+                             style="height: 60px; width: 100px; object-fit: cover; cursor: pointer; opacity: 0.6; transition: opacity 0.3s;">
                         <?php endforeach; ?>
                     </div>
                 </div>
             </div>
+            
+            <style>
+            .screenshot-thumbnails .screenshot-thumb:hover,
+            .screenshot-thumbnails .screenshot-thumb.active { opacity: 1 !important; border: 2px solid var(--bs-primary); }
+            .screenshot-main:hover { filter: brightness(1.1); }
+            </style>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const carousel = document.getElementById('screenshotCarousel');
+                if (carousel) {
+                    carousel.addEventListener('slid.bs.carousel', (e) => {
+                        document.querySelectorAll('.screenshot-thumb').forEach((t, i) => {
+                            t.classList.toggle('active', i === e.to);
+                        });
+                    });
+                    // Click on main image opens modal
+                    carousel.querySelectorAll('.screenshot-main').forEach(img => {
+                        img.addEventListener('click', () => {
+                            document.getElementById('modalImage').src = img.dataset.image;
+                        });
+                    });
+                }
+            });
+            </script>
             <?php endif; ?>
             
             <!-- Trailers -->
