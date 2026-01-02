@@ -570,9 +570,21 @@ $basePath = '/RAWG_v2';
                         <a href="https://<?= htmlspecialchars($store->store->domain) ?>" 
                            target="_blank" 
                            rel="noopener"
-                           class="btn btn-outline-secondary btn-sm">
+                           class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-<?= match($store->store->slug) {
+                                'steam' => 'steam',
+                                'playstation-store' => 'playstation',
+                                'xbox-store', 'xbox360' => 'xbox',
+                                'apple-appstore' => 'apple',
+                                'gog' => 'collection-play',
+                                'nintendo' => 'nintendo-switch',
+                                'google-play' => 'google-play',
+                                'epic-games' => 'lightning-charge-fill',
+                                'itch' => 'controller',
+                                default => 'bag-fill'
+                            } ?>"></i>
                             <?= htmlspecialchars($store->store->name) ?>
-                            <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            <i class="bi bi-box-arrow-up-right ms-1 text-muted small"></i>
                         </a>
                         <?php endforeach; ?>
                     </div>
