@@ -216,14 +216,51 @@ class RawgApiService
     }
 
     /**
-     * Get game DLCs/additions.
+     * Get game DLCs/additions (single page).
      * 
      * @param int $id Game ID
+     * @param int $page Page number
      * @return object|null Additions
      */
-    public function getGameAdditions(int $id): ?object
+    public function getGameAdditions(int $id, int $page = 1): ?object
     {
-        return $this->request("games/{$id}/additions");
+        return $this->request("games/{$id}/additions", ['page' => $page]);
+    }
+
+    /**
+     * Get ALL game DLCs/additions with automatic pagination.
+     * 
+     * @param int $id Game ID
+     * @param int $maxPages Maximum pages to fetch (default 10)
+     * @return object|null All additions combined
+     */
+    public function getAllGameAdditions(int $id, int $maxPages = 10): ?object
+    {
+        $allResults = [];
+        $page = 1;
+        $totalCount = 0;
+        
+        do {
+            $response = $this->getGameAdditions($id, $page);
+            
+            if (!$response || empty($response->results)) {
+                break;
+            }
+            
+            if ($page === 1) {
+                $totalCount = $response->count ?? 0;
+            }
+            
+            $allResults = array_merge($allResults, $response->results);
+            $hasMore = !empty($response->next);
+            $page++;
+            
+        } while ($hasMore && $page <= $maxPages);
+        
+        return (object) [
+            'count' => $totalCount,
+            'results' => $allResults
+        ];
     }
 
     /**

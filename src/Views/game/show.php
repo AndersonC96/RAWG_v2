@@ -563,14 +563,17 @@ $basePath = '/RAWG_v2';
     
     <!-- DLCs & Additions -->
     <?php if (!empty($additions->results)): ?>
+    <?php $totalAdditions = count($additions->results); ?>
     <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title d-flex align-items-center mb-3">
                 <i class="bi bi-plus-circle me-2 text-success"></i>
-                DLCs e Expansões (<?= count($additions->results) ?>)
+                DLCs e Expansões (<?= $totalAdditions ?>)
             </h5>
+            
+            <!-- Initial 6 DLCs -->
             <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
-                <?php foreach ($additions->results as $dlc): ?>
+                <?php foreach (array_slice($additions->results, 0, 6) as $dlc): ?>
                 <div class="col">
                     <a href="<?= $basePath ?>/game/<?= $dlc->id ?>" class="text-decoration-none">
                         <div class="dlc-card">
@@ -587,6 +590,64 @@ $basePath = '/RAWG_v2';
                 </div>
                 <?php endforeach; ?>
             </div>
+            
+            <!-- Collapsible remaining DLCs -->
+            <?php if ($totalAdditions > 6): ?>
+            <div class="collapse" id="moreDLCs">
+                <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3 mt-0">
+                    <?php foreach (array_slice($additions->results, 6) as $dlc): ?>
+                    <div class="col">
+                        <a href="<?= $basePath ?>/game/<?= $dlc->id ?>" class="text-decoration-none">
+                            <div class="dlc-card">
+                                <img src="<?= htmlspecialchars($dlc->background_image ?? '') ?>" 
+                                     class="img-fluid rounded mb-2" 
+                                     alt="<?= htmlspecialchars($dlc->name) ?>"
+                                     style="height: 80px; width: 100%; object-fit: cover;">
+                                <h6 class="text-truncate mb-0 small"><?= htmlspecialchars($dlc->name) ?></h6>
+                                <?php if (!empty($dlc->released)): ?>
+                                <small class="text-muted"><?= date('Y', strtotime($dlc->released)) ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
+            <!-- Toggle Button -->
+            <div class="text-center mt-3">
+                <button class="btn btn-outline-success" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#moreDLCs"
+                        aria-expanded="false">
+                    <span class="show-more-dlc">
+                        <i class="bi bi-chevron-down me-1"></i> Ver mais <?= $totalAdditions - 6 ?> DLCs
+                    </span>
+                    <span class="show-less-dlc d-none">
+                        <i class="bi bi-chevron-up me-1"></i> Ver menos
+                    </span>
+                </button>
+            </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const collapseDlcEl = document.getElementById('moreDLCs');
+                if (collapseDlcEl) {
+                    collapseDlcEl.addEventListener('show.bs.collapse', () => {
+                        const btn = document.querySelector('[data-bs-target="#moreDLCs"]');
+                        btn.querySelector('.show-more-dlc').classList.add('d-none');
+                        btn.querySelector('.show-less-dlc').classList.remove('d-none');
+                    });
+                    collapseDlcEl.addEventListener('hide.bs.collapse', () => {
+                        const btn = document.querySelector('[data-bs-target="#moreDLCs"]');
+                        btn.querySelector('.show-more-dlc').classList.remove('d-none');
+                        btn.querySelector('.show-less-dlc').classList.add('d-none');
+                    });
+                }
+            });
+            </script>
+            <?php endif; ?>
         </div>
     </div>
     <?php endif; ?>
