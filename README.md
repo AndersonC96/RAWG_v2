@@ -1,110 +1,97 @@
-# RAWG_v2 🎮
+# RAWG API - Portfolio Project 🎮
 
 <div align="center">
 
-![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![PSR-4](https://img.shields.io/badge/PSR--4-Autoload-4F5D95?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Badge PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Badge Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Badge JS](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Badge Architecture](https://img.shields.io/badge/Architecture-MVC-green?style=for-the-badge)
 
-**Aplicação web moderna para explorar jogos usando a API RAWG**
+![Hero Image](screenshots/home_hero.png)
 
-[Demo](#demo) • [Arquitetura](#-arquitetura) • [Instalação](#-instalação) • [Funcionalidades](#-funcionalidades)
+### Uma experiência moderna de descoberta de jogos construída com Engenharia de Software sólida.
+
+[Funcionalidades](#-funcionalidades) • [Galeria](#-galeria) • [Instalação](#-instalação) • [Tecnologias](#-tecnologias)
 
 </div>
 
 ---
 
-## 📖 Sobre
+## 📖 Sobre o Projeto
 
-O **RAWG_v2** é uma aplicação web PHP que demonstra boas práticas de desenvolvimento, incluindo:
+Este projeto converte a **RAWG API** em uma plataforma de descoberta de jogos de alta performance e visualmente impactante. Mais do que um simples wrapper de API, o **RAWG_v2** é uma demonstração de **arquitetura de software limpa**, utilizando o padrão **MVC (Model-View-Controller)** sem depender de frameworks pesados de backend, provando domínio sobre PHP nativo moderno.
 
-- 🏗️ **Arquitetura MVC** com separação clara de responsabilidades
-- 📦 **PSR-4 Autoloading** com namespaces organizados
-- 🎨 **Bootstrap 5** com design moderno e responsivo
-- 🔒 **Segurança** com variáveis de ambiente para API keys
-- 📱 **PWA Ready** com Service Worker para offline
-
-## 🏛️ Arquitetura
-
-```
-RAWG_v2/
-├── 📂 src/                     # Código fonte (PSR-4)
-│   ├── Config/                 # Configurações
-│   │   └── Config.php          # Carrega .env e constantes
-│   ├── Controllers/            # Controllers MVC
-│   │   ├── BaseController.php  # Controller base abstrato
-│   │   ├── HomeController.php
-│   │   ├── GameController.php
-│   │   ├── SearchController.php
-│   │   ├── GenreController.php
-│   │   └── FavoritesController.php
-│   ├── Core/                   # Componentes core
-│   │   └── Router.php          # Roteador simples
-│   ├── Services/               # Serviços
-│   │   └── RawgApiService.php  # Cliente API RAWG
-│   └── Views/                  # Templates
-│       ├── layouts/            # Layout principal
-│       ├── partials/           # Componentes reutilizáveis
-│       ├── home/               # Views da home
-│       ├── game/               # Views do jogo
-│       ├── search/             # Views de busca
-│       ├── genre/              # Views de gêneros
-│       ├── favorites/          # Views de favoritos
-│       └── errors/             # Páginas de erro
-├── 📂 public/                  # Assets públicos
-│   └── assets/
-│       ├── css/style.css       # Estilos customizados
-│       ├── js/app.js           # JavaScript principal
-│       └── images/             # Imagens
-├── 📄 index.php                # Entry point (Front Controller)
-├── 📄 composer.json            # Configuração Composer
-├── 📄 manifest.json            # PWA Manifest
-└── 📄 .env.example             # Template de configuração
-```
+O foco foi entregar uma User Experience (UX) de nível "Gamer Premium", com glassmorphism, efeitos neon, e interatividade fluida, enquanto mantém o código organizado, seguindo as **PSR-4** e **PSR-12**.
 
 ## ✨ Funcionalidades
 
+### Core & Descoberta
 | Feature | Descrição |
 |---------|-----------|
-| **Catálogo de Jogos** | Navegue por milhares de jogos com paginação |
-| **Detalhes Completos** | Screenshots, avaliações, conquistas, DLCs |
-| **Busca Inteligente** | Pesquise com histórico de buscas |
-| **Sistema de Favoritos** | Salve jogos (localStorage) |
-| **Filtro por Gênero** | Explore por categoria |
-| **Tema Dark/Light** | Alternância com persistência |
-| **Compartilhamento** | Facebook, Twitter, WhatsApp |
-| **PWA** | Instalável como app |
+| 🔍 **Busca Avançada** | Pesquise jogos por nome com sugestões inteligentes e histórico recente. |
+| 🎛️ **Filtros Poderosos** | **Novo!** Filtre por Ano de Lançamento, Nota Metacritic (>90, >80) e Ordenação dinâmica. |
+| 📄 **Paginação Full** | Navegação robusta em todas as listas (Desenvolvedores, Publishers, Plataformas). |
+| ❤️ **Favoritos** | Sistema de "Wishlist" local persistente para salvar seus jogos preferidos. |
 
-## 🚀 Tecnologias
+### Diferenciais de Portfólio
+| Feature | Detalhes Técnicos |
+|---------|-------------------|
+| 🆚 **Comparador de Jogos** | **Highlight!** Selecione até 3 jogos para comparar lado a lado specs, notas e lançamentos. (JS + LocalStorage). |
+| 🎨 **Design System** | UI Kit personalizado sobre Bootstrap 5, com tema Dark/Light e componentes Glassmorphism. |
+| 📱 **PWA Ready** | Instalável como aplicativo nativo graças ao `manifest.json` e Service Worker configurado. |
+| 🏛️ **Arquitetura MVC** | Router personalizado, Controllers magros e Services desacoplados. |
 
-### Backend
-- **PHP 8.0+** com tipagem estrita
-- **PSR-4** autoloading
-- **PSR-12** coding style
-- **cURL** para requisições HTTP
-- **MVC** architecture pattern
+---
+
+## 📸 Galeria
+
+### Comparação de Jogos
+Uma tabela interativa para decidir qual o próximo jogo da sua lista.
+![Comparação](screenshots/comparison.png)
+
+### Filtros Avançados & Home
+Refine sua busca com precisão.
+![Filtros](screenshots/filters.png)
+
+### Página Sobre & Footer
+Identidade visual coesa e links profissionais.
+![Sobre](screenshots/about.png)
+
+---
+
+## 🚀 Tecnologias & Arquitetura
+
+O projeto foi construído "from scratch" para demonstrar fundamentos sólidos.
+
+### Backend (PHP 8.2)
+- **Design Pattern**: MVC (Model-View-Controller).
+- **Router**: Motor de rotas personalizado `App\Core\Router`.
+- **Services**: `RawgApiService` encapsula a lógica externa.
+- **Standards**: PSR-4 Autoloading, Strict Types.
 
 ### Frontend
-- **Bootstrap 5.3** framework CSS
-- **Bootstrap Icons** iconografia
-- **Inter** tipografia (Google Fonts)
-- **JavaScript ES6+** módulos
+- **Framework**: Bootstrap 5.3 (Grid, Utilities).
+- **CSS Avançado**: CSS Variables, Backdrop Filter (Glassmorphism), Animações CSS3.
+- **JavaScript**: ES6 Modules, Async/Await para interações sem reload.
 
-### PWA
-- **Service Worker** para cache
-- **Manifest.json** para instalação
+### Estrutura de Pastas
+```bash
+RAWG_v2/
+├── 📂 src/
+│   ├── Controllers/   # Lógica de controle (Comparison, Home, etc.)
+│   ├── Models/        # (Opcional para expansão com DB)
+│   ├── Views/         # Templates PHP limpos
+│   ├── Core/          # Router e Configurações
+│   └── Services/      # Integrações de API
+├── 📂 public/         # Assets estáticos (CSS, JS, Images)
+└── 📄 index.php       # Entry Point Único
+```
+
+---
 
 ## 📦 Instalação
 
-### Pré-requisitos
-
-- PHP 8.0+
-- Servidor web (Apache/Nginx)
-- cURL extension
-
-### Passos
+Quer rodar localmente? É simples.
 
 1. **Clone o repositório**
    ```bash
@@ -112,75 +99,21 @@ RAWG_v2/
    cd RAWG_v2
    ```
 
-2. **Configure a API Key**
-   ```bash
-   cp .env.example .env
-   ```
-   Edite `.env`:
-   ```
-   RAWG_API_KEY=sua_api_key_aqui
-   ```
-   
-   > Obtenha sua key em [rawg.io/apidocs](https://rawg.io/apidocs)
+2. **Configure a API**
+   - Renomeie `.env.example` para `.env`.
+   - Obtenha sua chave gratuita em [rawg.io/apidocs](https://rawg.io/apidocs).
+   - Insira no arquivo: `RAWG_API_KEY=sua_chave_aqui`.
 
-3. **Configure o servidor**
-   - XAMPP: Coloque em `htdocs/RAWG_v2`
-   - Ou use PHP built-in:
-     ```bash
-     php -S localhost:8080
-     ```
+3. **Rode o Servidor**
+   ```bash
+   # Com PHP embutido
+   php -S localhost:8080
+   
+   # Ou mova a pasta para htdocs do XAMPP/Apache
+   ```
 
 4. **Acesse**
-   ```
-   http://localhost/RAWG_v2
-   ```
-
-## 📁 Padrões Utilizados
-
-### PSR-4 Autoloading
-```php
-namespace App\Controllers;
-
-class HomeController extends BaseController
-{
-    public function index(): void { }
-}
-```
-
-### PSR-12 Coding Style
-- `declare(strict_types=1)` em todos os arquivos
-- Tipagem de parâmetros e retorno
-- PHPDoc completo
-
-### MVC Pattern
-- **Model**: Representação de dados (API responses)
-- **View**: Templates PHP com Bootstrap
-- **Controller**: Lógica de negócio
-
-## 🔧 Configuração
-
-| Variável | Descrição |
-|----------|-----------|
-| `RAWG_API_KEY` | Chave API RAWG (obrigatório) |
-| `APP_DEBUG` | Modo debug (opcional) |
-
-## 📝 Changelog
-
-### v2.0.0 (2026-01)
-- ✨ Refatoração completa com MVC
-- 📦 PSR-4 autoloading
-- 🎨 Bootstrap 5 integration
-- 🔒 API key em `.env`
-- ⭐ Sistema de favoritos
-- 🌙 Toggle dark/light mode
-- 📱 PWA com Service Worker
-
-### v1.0.0
-- Release inicial
-
-## 📄 Licença
-
-MIT License - veja [LICENSE](LICENSE)
+   Abra `http://localhost:8080/RAWG_v2` (se no XAMPP) ou a porta configurada.
 
 ---
 
