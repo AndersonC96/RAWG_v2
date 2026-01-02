@@ -157,22 +157,77 @@ $basePath = '/RAWG_v2';
                         <i class="bi bi-play-circle me-2 text-danger"></i>
                         Trailers (<?= count($trailers->results) ?>)
                     </h5>
-                    <div class="row g-3">
-                        <?php foreach ($trailers->results as $trailer): ?>
-                        <div class="col-md-6">
-                            <div class="ratio ratio-16x9 rounded overflow-hidden">
-                                <video src="<?= htmlspecialchars($trailer->data->max ?? $trailer->data->{'480'} ?? '') ?>" 
-                                       poster="<?= htmlspecialchars($trailer->preview ?? '') ?>"
-                                       controls
-                                       preload="metadata"
-                                       class="bg-dark"></video>
+                    
+                    <!-- Main Video Carousel -->
+                    <div id="trailerCarousel" class="carousel slide mb-3" data-bs-ride="false">
+                        <div class="carousel-inner rounded overflow-hidden">
+                            <?php foreach ($trailers->results as $index => $trailer): ?>
+                            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                                <div class="ratio ratio-16x9">
+                                    <video id="trailer-<?= $index ?>"
+                                           src="<?= htmlspecialchars($trailer->data->max ?? $trailer->data->{'480'} ?? '') ?>" 
+                                           poster="<?= htmlspecialchars($trailer->preview ?? '') ?>"
+                                           controls
+                                           preload="metadata"
+                                           class="bg-dark trailer-video"></video>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <span class="badge bg-danger"><i class="bi bi-play-fill"></i> <?= htmlspecialchars($trailer->name ?? 'Trailer') ?></span>
+                                </div>
                             </div>
-                            <p class="text-muted small mt-2 mb-0"><?= htmlspecialchars($trailer->name ?? 'Trailer') ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#trailerCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#trailerCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Trailer Thumbnails -->
+                    <div class="trailer-thumbnails d-flex gap-2 overflow-auto pb-2">
+                        <?php foreach ($trailers->results as $index => $trailer): ?>
+                        <div class="trailer-thumb-wrapper position-relative <?= $index === 0 ? 'active' : '' ?>"
+                             data-bs-target="#trailerCarousel"
+                             data-bs-slide-to="<?= $index ?>"
+                             style="cursor: pointer; flex-shrink: 0;">
+                            <img src="<?= htmlspecialchars($trailer->preview ?? '') ?>" 
+                                 class="rounded"
+                                 alt="<?= htmlspecialchars($trailer->name ?? 'Trailer') ?>"
+                                 style="height: 60px; width: 107px; object-fit: cover; opacity: 0.6; transition: opacity 0.3s;">
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                                <i class="bi bi-play-circle-fill text-white fs-5"></i>
+                            </div>
                         </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
             </div>
+            
+            <style>
+            .trailer-thumbnails .trailer-thumb-wrapper:hover img,
+            .trailer-thumbnails .trailer-thumb-wrapper.active img { opacity: 1 !important; }
+            .trailer-thumbnails .trailer-thumb-wrapper.active { outline: 2px solid var(--bs-danger); border-radius: 0.375rem; }
+            </style>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const trailerCarousel = document.getElementById('trailerCarousel');
+                if (trailerCarousel) {
+                    // Pause all videos when sliding
+                    trailerCarousel.addEventListener('slide.bs.carousel', () => {
+                        document.querySelectorAll('.trailer-video').forEach(v => v.pause());
+                    });
+                    // Update active thumbnail
+                    trailerCarousel.addEventListener('slid.bs.carousel', (e) => {
+                        document.querySelectorAll('.trailer-thumb-wrapper').forEach((t, i) => {
+                            t.classList.toggle('active', i === e.to);
+                        });
+                    });
+                }
+            });
+            </script>
             <?php endif; ?>
             
             <!-- Achievements -->
